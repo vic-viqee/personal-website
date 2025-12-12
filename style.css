@@ -485,9 +485,6 @@ h1, h2, h3 {
 }
 
 
-    }
-}
-
 /* --- SECTION: AWARDS / CERTIFICATIONS --- */
 .badges-grid {
     display: grid;
@@ -1323,7 +1320,13 @@ h1, h2, h3 {
 @media (max-width: 768px) {
     .comic-title { font-size: 3.5rem; }
     .comic-subtitle { font-size: 1.8rem; }
-    .section-header { font-size: 2rem; width: 90%; }
+    .section-header { 
+    font-size: 2rem; 
+    width: fit-content; /* Adjust width to content size */
+    margin: 0 auto; /* Center it */
+    left: auto; /* Reset left property */
+    transform: none; /* Reset transform to avoid conflicts */
+}
     
     /* Navigation */
     .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left:0; width: 100%; background: white; padding: 20px; border-bottom: var(--border-thick); }
@@ -1336,17 +1339,30 @@ h1, h2, h3 {
     .split-panel { flex-direction: column; }
     .split-right { border-left: none; border-top: var(--border-thick); }
     
-    .about-content { flex-direction: column; }
+    .about-content { 
+        flex-direction: column;
+        text-align: center;
+    }
     .speech-bubble { margin-top: 20px; }
     .right-bubble::after, .right-bubble::before {
         /* Move tail to top on mobile */
-        left: 50%; top: -20px;
-        border-left: 20px solid transparent; border-right: 20px solid transparent;
-        border-bottom: 20px solid var(--c-black); border-top: none;
+        left: 50%; 
+        top: -20px;
+        transform: translateX(-50%);
+        border-left: 20px solid transparent; 
+        border-right: 20px solid transparent;
+        border-bottom: 20px solid var(--c-black); 
+        border-top: none;
     }
-     .right-bubble::before { top: -14px; border-bottom-color: var(--c-white); }
+     .right-bubble::before { 
+        top: -14px; 
+        border-bottom-color: var(--c-white); 
+    }
 
-     .contact-card { width: 100%; }
+     .contact-card { 
+        width: 100%; 
+        justify-content: center;
+    }
 }
 
 /* --- ANIMATIONS --- */
@@ -1490,105 +1506,27 @@ h1, h2, h3 {
     box-shadow: var(--shadow-hard);
 }
 
-/* --- BLOG STYLES --- */
-.blog-posts-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 40px;
-    margin-top: 50px;
-}
+/* --- MOBILE RESPONSIVENESS (Small Screens) --- */
+@media (max-width: 420px) {
+    .comic-title {
+        font-size: 2.5rem;
+    }
 
-.blog-post-card {
-    border: var(--border-thick);
-    background: var(--c-white);
-    box-shadow: var(--shadow-hard);
-    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
-    cursor: pointer;
-    overflow: hidden;
-}
+    .comic-subtitle {
+        font-size: 1.5rem;
+    }
 
-.blog-post-card:hover {
-    transform: translate(-5px, -5px) scale(1.02) rotate(-2deg);
-    box-shadow: 12px 12px 0px var(--c-black);
-}
+    .project-box {
+        height: 420px;
+    }
 
-.blog-post-card .post-image-container {
-    height: 200px;
-    border-bottom: var(--border-thick);
-    overflow: hidden;
-    position: relative;
-    background: var(--c-grey-light);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+    .badge-item,
+    .tool-item,
+    .hobby-bubble {
+        width: 100%;
+    }
 
-.blog-post-card .post-image-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: grayscale(100%) contrast(120%);
-    transition: all 0.3s;
-}
-
-.blog-post-card:hover .post-image-container img {
-    filter: grayscale(0%) contrast(100%);
-}
-
-.blog-post-card .post-info {
-    padding: 20px;
-}
-
-.blog-post-card .post-info h3 {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-}
-
-.blog-post-card .post-info h3 a {
-    text-decoration: none;
-    color: var(--c-black);
-    transition: color 0.2s;
-}
-
-.blog-post-card .post-info h3 a:hover {
-    color: var(--c-accent);
-}
-
-.blog-post-card .post-meta {
-    font-size: 0.9rem;
-    color: var(--c-grey-dark);
-    margin-bottom: 15px;
-}
-
-.blog-post-card .post-excerpt {
-    font-size: 1rem;
-    line-height: 1.5;
-    margin-bottom: 20px;
-}
-
-/* Individual Blog Post Styles */
-.post-content {
-    margin-top: 30px;
-    line-height: 1.8;
-    font-size: 1.1rem;
-}
-
-.post-content h1, .post-content h2, .post-content h3 {
-    color: var(--c-accent);
-    margin-top: 30px;
-    margin-bottom: 15px;
-    text-shadow: 2px 2px 0px var(--c-black);
-}
-
-.post-content p {
-    margin-bottom: 20px;
-}
-
-.post-content .post-full-image {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    margin: 30px auto;
-    border: var(--border-thick);
-    box-shadow: var(--shadow-hard);
+    .motto-container .comic-title {
+        font-size: 1.5rem;
+    }
 }
