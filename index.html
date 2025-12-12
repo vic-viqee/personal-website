@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Victor Lewis Murimi | The Portfolio Issue</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Rubik:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="loading-screen">
+        <span class="impact-word" style="--i:1;">POW!</span>
+        <span class="impact-word" style="--i:2;">ZAP!</span>
+        <span class="impact-word" style="--i:3;">BAM!</span>
+        <span class="impact-word" style="--i:4;">LOADING...</span>
+    </div>
+
+    <nav class="comic-nav">
+        <div class="nav-logo">VL MURIMI</div>
+        <ul class="nav-links">
+            <li><a href="#home">HQ</a></li>
+            <li><a href="#projects">Missions</a></li>
+            <li><a href="#skills">Powers</a></li>
+            <li><a href="#about">Origin</a></li>
+            <li><a href="#contact">Signal</a></li>
+            <li><a href="blog.html">Blog</a></li>
+        </ul>
+        <div class="theme-switcher">
+            <button data-theme="default" class="theme-btn">Light</button>
+            <button data-theme="dark" class="theme-btn">Noir</button>
+            <button data-theme="cyberpunk" class="theme-btn">Cyber</button>
+        </div>
+        <div class="nav-burger">☰</div>
+    </nav>
+
+    <main class="webtoon-container">
+        <div id="achievement-notification" class="comic-panel">ACHIEVEMENT UNLOCKED: GEMINI SEEKER!</div>
+
+        <section id="home" class="comic-panel hero-panel hidden-element">
+            <div class="panel-content">
+                <h1 class="comic-title">THE HERO WE NEED</h1>
+                <h2 class="comic-subtitle">VICTOR LEWIS MURIMI</h2>
+                <p class="comic-text">Developer by day. Vigilante coder by night. Welcome to my digital headquarters. Explore my past missions and current capabilities.</p>
+                <a href="#projects" class="comic-btn">VIEW MISSIONS!</a>
+            </div>
+            <div class="hero-graphic">
+                <div class="zap-graphic"> &lt;/ZAP!&gt; </div>
+            </div>
+        </section>
+
+        <section id="projects" class="comic-panel hidden-element">
+            <h2 class="section-header hidden-element">PREVIOUS MISSIONS <span class="accent-text">(PROJECTS)</span></h2>
+            <div class="project-filters">
+                <button class="filter-btn active" data-category="all">ALL MISSIONS</button>
+                <button class="filter-btn" data-category="frontend">FRONTEND</button>
+                <button class="filter-btn" data-category="backend">BACKEND</button>
+                <button class="filter-btn" data-category="fullstack">FULL-STACK</button>
+                <button class="filter-btn" data-category="automation">AUTOMATION</button>
+            </div>
+            <div class="projects-grid">
+                <article class="project-box hidden-element" data-category="fullstack">
+                    <div class="project-info-front">
+                        <div class="project-image-container">
+                            <img src="assets/images/fluxpay.png" alt="FluxPay Logo" class="project-img">
+                            <div class="comic-overlay">UNDER DEVELOPMENT!</div>
+                        </div>
+                        <div class="project-info">
+                            <h3>FLUXPAY: SAAS</h3>
+                            <div class="mission-difficulty">
+                                <img src="assets/icons/ui/star-filled.svg" alt="Filled Star" class="star-icon">
+                                <img src="assets/icons/ui/star-filled.svg" alt="Filled Star" class="star-icon">
+                                <img src="assets/icons/ui/star-filled.svg" alt="Filled Star" class="star-icon">
+                                <img src="assets/icons/ui/star-filled.svg" alt="Filled Star" class="star-icon">
+                                <img src="assets/icons/ui/star-filled.svg" alt="Filled Star" class="star-icon">
+                            </div>
+                            <p>My current SaaS under development, revolutionizing payments.</p>
+                            <div class="tech-stack">
+                                <img src="assets/tech/react.svg" alt="React" class="tech-icon">
+                                <img src="assets/tech/nodedotjs.svg" alt="NodeJS" class="tech-icon">
+                                <img src="assets/tech/mongodb.svg" alt="MongoDB" class="tech-icon">
+                                <img src="assets/tech/tailwindcss.svg" alt="Tailwind CSS" class="tech-icon">
+                            </div>
+                            <a href="https://fluxpay-frontend.onrender.com/" target="_blank" class="comic-link">SEE LIVE DEMO -></a>
+                            <a href="https://github.com/vic-viqee/fluxpay" target="_blank" class="comic-link">VIEW GITHUB REPO -></a>
+                        </div>
+                    </div>
+                    <div class="project-details-back">
+                        <h4>MISSION BRIEFING: FLUXPAY</h4>
+                        <p>FluxPay is a revolutionary payment platform that simplifies transactions and provides deep insights into your cash flow. It is designed to be secure, fast, and easy to integrate.</p>
+                        <h5>KEY FEATURES:</h5>
+                        <ul>
+                            <li>Seamless payment processing.</li>
+                            <li>AI-powered analytics and fraud detection.</li>
+                            <li>Scalable and secure architecture.</li>
+                        </ul>
+                        <button class="close-details-btn comic-btn">X</button>
+                    </div>
+                </article>
+
+                <article class="project-box hidden-element" data-category="automation">
+                    <div class="project-info-front">
+                        <div class="project-image-container">
+                            <img src="assets/images/online-video-downloader-preview.png" alt="Online Video Downloader Preview" class="project-img placeholder-img">
+                            <div class="comic-overlay">DOWNLOAD NOW!</div>
+                        </div>
+                        <div class="project-info">
+                            <h3>ONLINE VIDEO DOWNLOADER</h3>
+                            <div class="mission-difficulty">
+                                <img src="assets/icons/ui/star-filled.svg" alt="Filled Star" class="star-icon">
+                                <img src="assets/icons/ui/star-filled.svg" alt="Filled Star" class="star-icon">
+                                <img src="assets/icons/ui/star-filled.svg" alt="Filled Star" class="star-icon">
+                                <img src="assets/icons/ui/star-empty.svg" alt="Empty Star" class="star-icon">
+                                <img src="assets/icons/ui/star-empty.svg" alt="Empty Star" class="star-icon">
+                            </div>
+                            <p>A web-based tool to download videos from various online platforms.</p>
+                            <div class="tech-stack">
+                                <img src="assets/tech/powershell.svg" alt="Powershell" class="tech-icon">
+                            </div>
+                            <a href="https://github.com/vic-viqee/online-video-downloader" target="_blank" class="comic-link">VIEW GITHUB REPO -></a>
+                        </div>
+                    </div>
+                    <div class="project-details-back">
+                        <h4>MISSION BRIEFING: ONLINE VIDEO DOWNLOADER</h4>
+                        <p>This tool provides a simple interface for downloading videos from the web. It is built with a Python backend using FastAPI and leverages the power of yt-dlp to handle video extraction from a wide range of sources.</p>
+                        <h5>KEY FEATURES:</h5>
+                        <ul>
+                            <li>Supports a wide range of video platforms.</li>
+                            <li>Simple, user-friendly interface.</li>
+                            <li>Fast and efficient video downloading.</li>
+                        </ul>
+                        <button class="close-details-btn comic-btn">X</button>
+                    </div>
+                </article>
+
+                <article class="project-box hidden-element" data-category="automation">
+                    <div class="project-info-front">
+                        <div class="project-image-container">
+                            <img src="assets/images/video-splitter-preview.png" alt="Video Splitter Preview" class="project-img placeholder-img">
+                            <div class="comic-overlay">SLICE & DICE!</div>
+                        </div>
+                        <div class="project-info">
+                            <h3>VIDEO SPLITTER</h3>
+                            <div class="mission-difficulty">
+                                <img src="assets/icons/ui/star-filled.svg" alt="Filled Star" class="star-icon">
+                                <img src="assets/icons/ui/star-filled.svg" alt="Filled Star" class="star-icon">
+                                <img src="assets/icons/ui/star-filled.svg" alt="Filled Star" class="star-icon">
+                                <img src="assets/icons/ui/star-empty.svg" alt="Empty Star" class="star-icon">
+                                <img src="assets/icons/ui/star-empty.svg" alt="Empty Star" class="star-icon">
+                            </div>
+                            <p>A tool to split large video files into smaller chunks, with progress tracking.</p>
+                            <div class="tech-stack">
+                                <img src="assets/tech/python.svg" alt="Python" class="tech-icon">
+                            </div>
+                            <a href="https://github.com/vic-viqee/video-splitter" target="_blank" class="comic-link">VIEW GITHUB REPO -></a>
+                        </div>
+                    </div>
+                    <div class="project-details-back">
+                        <h4>MISSION BRIEFING: VIDEO SPLITTER</h4>
+                        <p>A Python script that splits a large video file into smaller parts of a specified duration. Includes a progress bar using tqdm to monitor the splitting process.</p>
+                        <h5>KEY FEATURES:</h5>
+                        <ul>
+                            <li>Splits large video files into smaller chunks.</li>
+                            <li>Customizable chunk duration.</li>
+                            <li>Progress bar for user feedback.</li>
+                        </ul>
+                        <button class="close-details-btn comic-btn">X</button>
+                    </div>
+                </article>
+
+                <article class="project-box hidden-element" data-category="frontend">
+                    <div class="project-info-front">
+                        <div class="project-image-container">
+                            <img src="assets/images/choose-your-own-adventure-preview.png" alt="Choose Your Own Adventure Preview" class="project-img placeholder-img">
+                            <div class="comic-overlay">YOUR FATE AWAITS!</div>
+                        </div>
+                        <div class="project-info">
+                            <h3>CHOOSE YOUR OWN ADVENTURE</h3>
+                            <div class="mission-difficulty">
+                                <img src="assets/icons/ui/star-filled.svg" alt="Filled Star" class="star-icon">
+                                <img src="assets/icons/ui/star-filled.svg" alt="Filled Star" class="star-icon">
+                                <img src="assets/icons/ui/star-empty.svg" alt="Empty Star" class="star-icon">
+                                <img src="assets/icons/ui/star-empty.svg" alt="Empty Star" class="star-icon">
+                                <img src="assets/icons/ui/star-empty.svg" alt="Empty Star" class="star-icon">
+                            </div>
+                            <p>An interactive, browser-based text adventure where your choices shape the story.</p>
+                            <div class="tech-stack">
+                                <img src="assets/tech/html5.svg" alt="HTML5" class="tech-icon">
+                                <img src="assets/tech/css.svg" alt="CSS" class="tech-icon">
+                                <img src="assets/tech/javascript.svg" alt="JavaScript" class="tech-icon">
+                            </div>
+                            <a href="https://github.com/vic-viqee/choose_your_own_adventure" target="_blank" class="comic-link">VIEW GITHUB REPO -></a>
+                        </div>
+                    </div>
+                    <div class="project-details-back">
+                        <h4>MISSION BRIEFING: CHOOSE YOUR OWN ADVENTURE</h4>
+                        <p>This is a simple, browser-based choice adventure game built with HTML, CSS, and vanilla JavaScript. The player enters their name, decides whether to play, and navigates through a branching storyline with multiple choices and outcomes.</p>
+                        <h5>KEY FEATURES:</h5>
+                        <ul>
+                            <li>Interactive branching narrative.</li>
+                            <li>Multiple endings based on player choices.</li>
+                            <li>Engaging text-based gameplay.</li>
+                        </ul>
+                        <button class="close-details-btn comic-btn">X</button>
+                    </div>
+                </article>
+
+                 </div>
+        </section>
+
+        <section id="timeline" class="comic-panel hidden-element">
+            <h2 class="section-header hidden-element">MY CODING SAGA <span class="accent-text">(TIMELINE)</span></h2>
+            <div class="timeline-container">
+
+                <div class="timeline-event hidden-element animate-slide-left">
+                    <div class="timeline-date">2024</div>
+                    <div class="timeline-caption speech-bubble left-bubble">
+                        <p><strong>ISSUE #1: THE REAL START!</strong></p>
+                        <p>Dove into HTML, CSS, and JavaScript while grinding through countless YouTube tutorials. Built my first real projects by hand.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-event hidden-element animate-slide-right">
+                    <div class="timeline-date">2025</div>
+                    <div class="timeline-caption speech-bubble right-bubble">
+                        <p><strong>LEVEL-UP YEAR!</strong></p>
+                        <p>Expanded into Python and Next.js. Entered the AI era using coding agents like Gemini CLI and Opencode to accelerate builds and experimentation.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-event hidden-element animate-slide-left">
+                    <div class="timeline-date">FUTURE</div>
+                    <div class="timeline-caption speech-bubble left-bubble">
+                        <p><strong>THE FLUXPAY ERA!</strong></p>
+                        <p>Building FluxPay into a full-scale M-Pesa automation platform: STK Push, virtual tills, auto-reconciliation, AI systems, and beyond.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <section id="skills" class="comic-panel split-panel hidden-element">
+            <div class="split-left">
+                <h2 class="section-header hidden-element">SUPERPOWERS <span class="accent-text">(SKILLS)</span></h2>
+                <div class="skills-grid">
+
+                    <div class="skill-item hidden-element animate-slide-left">
+                        <h3>HTML, CSS & JavaScript</h3>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar" style="width: 90%;"></div>
+                            <span class="skill-level">90%</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-item hidden-element animate-slide-left" style="animation-delay: 0.1s;">
+                        <h3>Next.js & Modern Frontend</h3>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar" style="width: 80%;"></div>
+                            <span class="skill-level">80%</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-item hidden-element animate-slide-left" style="animation-delay: 0.2s;">
+                        <h3>Python & Backend Development</h3>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar" style="width: 75%;"></div>
+                            <span class="skill-level">75%</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-item hidden-element animate-slide-left" style="animation-delay: 0.3s;">
+                        <h3>AI Coding Agents (Gemini CLI, Opencode)</h3>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar" style="width: 70%;"></div>
+                            <span class="skill-level">70%</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-item hidden-element animate-slide-left" style="animation-delay: 0.4s;">
+                        <h3>M-Pesa Daraja API & Automation</h3>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar" style="width: 68%;"></div>
+                            <span class="skill-level">68%</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-item hidden-element animate-slide-left" style="animation-delay: 0.5s;">
+                        <h3>Version Control (Git/GitHub)</h3>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar" style="width: 85%;"></div>
+                            <span class="skill-level">85%</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="split-right panel-divider">
+                <h2 class="section-header hidden-element">TRAINING ACADEMY <span class="accent-text">(EDUCATION)</span></h2>
+                <ul class="comic-list edu-list">
+
+                    <li>
+                        <strong>Diploma in Information Technology</strong>
+                        <span>[Embu College] | 2024 – Ongoing</span>
+                    </li>
+
+                    <li>
+                        <strong>Cisco Certified Networking Associate (CCNA1)</strong>
+                        <span>[Embu College] | 2024</span>
+                    </li>
+
+                    <li>
+                        <strong>Next.js Advanced Frontend Development</strong>
+                        <span>[YouTube + Official Docs] | Ongoing</span>
+                    </li>
+
+                    <li>
+                        <strong>Backend Engineering (Python, FastAPI, Node.js)</strong>
+                        <span>[Self-Taught + Youtube] | 2024 – Ongoing</span>
+                    </li>
+
+                    <li>
+                        <strong>AI Coding Agents (Gemini CLI, Opencode, Claude Artifacts)</strong>
+                        <span>[Self-Taught] | 2025</span>
+                    </li>
+
+                    <li>
+                        <strong>Daraja API</strong>
+                        <span>[Safaricom Developer Portal] | 2024 – 2025</span>
+                    </li>
+
+                    <li>
+                        <strong>Cloud Deployment (Netlify, Vercel, Render)</strong>
+                        <span>[Self-Taught + Youtube] | 2024 – 2025</span>
+                    </li>
+
+                    <li>
+                        <strong>Version Control & DevOps Foundations</strong>
+                        <span>[GitHub + Git Bash + Youtube] | 2024 – 2025</span>
+                    </li>
+
+                </ul>
+            </div>
+
+        </section>
+
+        <section id="awards" class="comic-panel hidden-element">
+            <h2 class="section-header hidden-element">ACHIEVEMENT UNLOCKED <span class="accent-text">(AWARDS & CERTIFICATIONS)</span></h2>
+            <div class="badges-grid">
+
+                <div class="badge-item hidden-element animate-pop-in">
+                    <div class="badge-graphic">
+                        <img src="assets/badge-fullstack.png" alt="Full Stack Certification">
+                    </div>
+                    <div class="badge-info">
+                        <h3>FULL STACK CERTIFIED</h3>
+                        <p>Awarded for comprehensive mastery of front-end and back-end development.</p>
+                    </div>
+                </div>
+
+                <div class="badge-item hidden-element animate-pop-in">
+                    <div class="badge-graphic">
+                        <img src="assets/badge-react.svg" alt="React Specialist Badge">
+                    </div>
+                    <div class="badge-info">
+                        <h3>REACT SPECIALIST</h3>
+                        <p>Proficiency in building dynamic user interfaces with React.js.</p>
+                    </div>
+                </div>
+
+                <div class="badge-item hidden-element animate-pop-in">
+                    <div class="badge-graphic">
+                        <img src="assets/badge-nodejs.png" alt="Node.js Master Badge">
+                    </div>
+                    <div class="badge-info">
+                        <h3>NODE.JS MASTER</h3>
+                        <p>Expertise in server-side JavaScript and scalable backend development.</p>
+                    </div>
+                </div>
+                <div class="badge-item hidden-element animate-pop-in">
+                    <div class="badge-graphic">
+                        <img src="assets/badge-python.png" alt="Node.js Master Badge">
+                    </div>
+                    <div class="badge-info">
+                        <h3>PYTHON MASTER</h3>
+                        <p>Expertise in Python and backend frameworks like FAstAPI</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="tools" class="comic-panel hidden-element">
+            <h2 class="section-header hidden-element">GADGETS & ARSENAL <span class="accent-text">(FAVORITE TOOLS)</span></h2>
+            <div class="tools-grid">
+
+                <div class="tool-item hidden-element animate-pop-in">
+                    <div class="tool-graphic">
+                        <img src="assets/tech/vscode.svg" alt="VSCode">
+                    </div>
+                    <div class="tool-info">
+                        <h3>VS CODE</h3>
+                        <p>My primary code editor, where the magic happens.</p>
+                    </div>
+                </div>
+
+                <div class="tool-item hidden-element animate-pop-in">
+                    <div class="tool-graphic">
+                        <img src="assets/tech/github.svg" alt="GitHub">
+                    </div>
+                    <div class="tool-info">
+                        <h3>GITHUB</h3>
+                        <p>My mission control for version control and collaboration.</p>
+                    </div>
+                </div>
+
+                <div class="tool-item hidden-element animate-pop-in">
+                    <div class="tool-graphic">
+                        <img src="assets/images/gemini.webp" alt="Gemini CLI">
+                    </div>
+                    <div class="tool-info">
+                        <h3>GEMINI CLI</h3>
+                        <p>My AI pair programmer for coding and debugging.</p>
+                    </div>
+                </div>
+                <div class="tool-item hidden-element animate-pop-in">
+                    <div class="tool-graphic">
+                        <img src="assets/images/opencode.webp" alt="Opencode">
+                    </div>
+                    <div class="tool-info">
+                        <h3>OPENCODE</h3>
+                        <p>Open-source platform for collaborative coding and learning.</p>
+                    </div>
+                </div>
+                <div class="tool-item hidden-element animate-pop-in">
+                    <div class="tool-graphic">
+                        <img src="assets/images/github-copilot.webp" alt="GitHub Copilot">
+                    </div>
+                    <div class="tool-info">
+                        <h3>GITHUB COPILOT</h3>
+                        <p>AI-powered code completion and suggestion tool.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="hobbies" class="comic-panel hidden-element">
+            <h2 class="section-header hidden-element">OFF-DUTY PURSUITS <span class="accent-text">(HOBBIES & INTERESTS)</span></h2>
+
+            <div class="hobbies-grid">
+
+                <!-- CATEGORY: TECH ADVENTURES -->
+                <div class="hobby-category-header hidden-element">TECH ADVENTURES</div>
+
+                <div class="hobby-bubble speech-bubble left-bubble hidden-element animate-pop-in">
+                    <p>AI EXPERIMENTATION: Testing Gemini CLI, Opencode, and building small AI agents.</p>
+                </div>
+
+                <div class="hobby-bubble speech-bubble right-bubble hidden-element animate-pop-in" style="animation-delay: 0.1s;">
+                    <p>UI/UX EXPLORATION: Studying interface design, patterns, and modern aesthetics.</p>
+                </div>
+
+                <div class="hobby-bubble speech-bubble left-bubble hidden-element animate-pop-in" style="animation-delay: 0.2s;">
+                    <p>TECH YOUTUBE QUESTS: Binge-learning new frameworks, tools, and dev tips.</p>
+                </div>
+
+                <div class="hobby-bubble speech-bubble right-bubble hidden-element animate-pop-in" style="animation-delay: 0.3s;">
+                    <p>AUTOMATION MINI-PROJECTS: Creating scripts and tiny tools that solve everyday problems.</p>
+                </div>
+
+                <!-- CATEGORY: COMIC-STYLE MISSIONS -->
+                <div class="hobby-category-header hidden-element">HEROIC SIDE QUESTS</div>
+
+                <div class="hobby-bubble speech-bubble right-bubble hidden-element animate-pop-in" style="animation-delay: 0.5s;">
+                    <p>BUG HUNTING: Tracking and eliminating code villains across the multiverse.</p>
+                </div>
+
+                <div class="hobby-bubble speech-bubble left-bubble hidden-element animate-pop-in" style="animation-delay: 0.6s;">
+                    <p>CODING MARATHONS: All-night missions powered by focus mode and determination.</p>
+                </div>
+
+                <div class="hobby-bubble speech-bubble right-bubble hidden-element animate-pop-in" style="animation-delay: 0.7s;">
+                    <p>IDEA FORGING: Crafting micro-SaaS concepts, futuristic tools, and bold side projects.</p>
+                </div>
+
+                <div class="hobby-bubble speech-bubble left-bubble hidden-element animate-pop-in" style="animation-delay: 0.8s;">
+                    <p>YOUTUBE QUESTING: Diving into deep tutorials, hacks, and knowledge vaults.</p>
+                </div>
+
+                <!-- CATEGORY: PROFESSIONAL GROWTH -->
+                <div class="hobby-category-header hidden-element">GROWTH & MASTERY</div>
+
+                <div class="hobby-bubble speech-bubble right-bubble hidden-element animate-pop-in" style="animation-delay: 0.9s;">
+                    <p>ENTREPRENEURSHIP: Studying SaaS, monetization, and building products like FluxPay.</p>
+                </div>
+
+                <div class="hobby-bubble speech-bubble left-bubble hidden-element animate-pop-in" style="animation-delay: 1s;">
+                    <p>API & SYSTEM DESIGN: Learning backend architecture, patterns, and modern API workflows.</p>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="motto" class="comic-panel hidden-element">
+            <h2 class="section-header hidden-element">MY CREED <span class="accent-text">(MOTTO)</span></h2>
+            <div class="motto-container animate-pop-in">
+                <p class="comic-title">"BUILDING THE WORLD ONE LINE OF CODE AT A TIME"</p>
+            </div>
+        </section>
+
+        <section id="about" class="comic-panel about-panel hidden-element">
+            <h2 class="section-header hidden-element">THE ORIGIN STORY</h2>
+            <div class="about-content">
+                <div class="avatar-container hidden-element">
+                    <img src="assets/avatars/murimi-avatar.svg" alt="Victor Lewis Murimi Comic Avatar" class="comic-avatar">
+                </div>
+                <div class="speech-bubble right-bubble hidden-element">
+                    <p>My name is Victor Lewis Murimi. I'm a passionate developer based in Kenya. Every great hero has an origin story; mine began with a curiosity for how things work on the web. Today, I use my powers to build robust, user-friendly digital experiences. When I'm not coding, I'm [mention a hobby] or plotting my next big project.</p>
+                </div>
+                <div id="fun-fact-bubble" class="speech-bubble left-bubble hidden-element">
+                    <p>DID YOU KNOW? <span id="fun-fact-text">I once debugged for 48 hours straight fueled by coffee and sheer willpower!</span></p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="comic-panel contact-panel hidden-element">
+            <h2 class="section-header hidden-element">SEND A SIGNAL</h2>
+            <p class="contact-intro">Need a hero for your next project? Use the secure channels below.</p>
+
+            <div class="contact-grid">
+                <a href="mailto:murimivictorlewis@gmail.com" class="contact-card hidden-element">
+                    <span class="icon">✉️</span>
+                    <span class="detail">murimivictorlewis@gmail.com</span>
+                </a>
+            </div>
+
+            <div class="social-links">
+                <h3>ALLIED NETWORKS:</h3>
+                <a href="https://github.com/vic-viqee" target="_blank" class="social-btn hidden-element">
+                    <img src="assets/social/github.svg" alt="GitHub" class="social-icon">
+                    <span>GITHUB</span>
+                </a>
+                <a href="https://x.com/VictorlewisMur3" target="_blank" class="social-btn hidden-element">
+                    <img src="assets/social/x.svg" alt="X (Twitter)" class="social-icon">
+                    <span>X (TWITTER)</span>
+                </a>
+                <a href="https://linkedin.com/in/victor-lewis-murimi" target="_blank" class="social-btn hidden-element">
+                    <img src="assets/social/linkedin.svg" alt="LinkedIn" class="social-icon">
+                    <span>LINKEDIN</span>
+                </a>
+                <a href="https://wa.me/254114086112" target="_blank" class="social-btn hidden-element">
+                    <img src="assets/social/whatsapp.svg" alt="WhatsApp" class="social-icon">
+                    <span>WHATSAPP</span>
+                </a>
+            </div>
+
+            <footer class="comic-footer">
+                <p>© 2025 VICTOR LEWIS MURIMI. ISSUE #1. ALL RIGHTS RESERVED.</p>
+                <p style="font-size: 0.8rem;">Built with pure HTML/CSS/JS.</p>
+                <span id="gemini-quest-trigger" style="display: none;">GEMINI</span>
+            </footer>
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
