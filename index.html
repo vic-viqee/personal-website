@@ -5,7 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Victor Lewis Murimi | The Portfolio Issue</title>
     <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Rubik:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
+	<script>
+      window.va = window.va || function () { (window.va.q = window.va.q || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
     <div class="loading-screen">
@@ -27,8 +31,7 @@
         </ul>
         <div class="theme-switcher">
             <button data-theme="default" class="theme-btn">Light</button>
-            <button data-theme="dark" class="theme-btn">Noir</button>
-            <button data-theme="cyberpunk" class="theme-btn">Cyber</button>
+            <button data-theme="dark" class="theme-btn">Dark</button>
         </div>
         <div class="nav-burger">☰</div>
     </nav>
@@ -58,6 +61,7 @@
                 <button class="filter-btn" data-category="automation">AUTOMATION</button>
             </div>
             <div class="projects-grid">
+                
                 <article class="project-box hidden-element" data-category="fullstack">
                     <div class="project-info-front">
                         <div class="project-image-container">
@@ -86,47 +90,87 @@
                     </div>
                     <div class="project-details-back">
                         <h4>MISSION BRIEFING: FLUXPAY</h4>
-                        <p>FluxPay is a revolutionary payment platform that simplifies transactions and provides deep insights into your cash flow. It is designed to be secure, fast, and easy to integrate.</p>
+                        <p>A B2B fintech SaaS designed to aggregate mobile money transactions. The architecture automates M-Pesa STK Push requests and utilizes WebSockets for real-time payment reconciliation.</p>
                         <h5>KEY FEATURES:</h5>
                         <ul>
-                            <li>Seamless payment processing.</li>
-                            <li>AI-powered analytics and fraud detection.</li>
-                            <li>Scalable and secure architecture.</li>
+                            <li><strong>M-Pesa Daraja API Integration:</strong> Automated B2C and C2B payment handling.</li>
+                            <li><strong>Real-time Analytics:</strong> Dashboard visualization of cash flow using chart data aggregation.</li>
+                            <li><strong>Secure Architecture:</strong> Implemented with JWT authentication and role-based access control (RBAC).</li>
                         </ul>
                         <button class="close-details-btn comic-btn">X</button>
                     </div>
                 </article>
 
-                <article class="project-box hidden-element" data-category="automation">
+                <article class="project-box hidden-element" data-category="backend">
                     <div class="project-info-front">
                         <div class="project-image-container">
-                            <img src="assets/images/online-video-downloader-preview.png" alt="Online Video Downloader Preview" class="project-img placeholder-img">
-                            <div class="comic-overlay">DOWNLOAD NOW!</div>
+                            <img src="assets/images/crypto-bot-preview.png" alt="Crypto Signal Bot" class="project-img placeholder-img">
+                            <div class="comic-overlay">MARKET SENTINEL!</div>
                         </div>
                         <div class="project-info">
-                            <h3>ONLINE VIDEO DOWNLOADER</h3>
+                            <h3>CRYPTO SIGNAL BOT (AI)</h3>
                             <div class="mission-difficulty">
                                 <img src="assets/icons/ui/star-filled.svg" alt="Filled Star" class="star-icon">
                                 <img src="assets/icons/ui/star-filled.svg" alt="Filled Star" class="star-icon">
                                 <img src="assets/icons/ui/star-filled.svg" alt="Filled Star" class="star-icon">
-                                <img src="assets/icons/ui/star-empty.svg" alt="Empty Star" class="star-icon">
-                                <img src="assets/icons/ui/star-empty.svg" alt="Empty Star" class="star-icon">
+                                <img src="assets/icons/ui/star-filled.svg" alt="Filled Star" class="star-icon">
+                                <img src="assets/icons/ui/star-filled.svg" alt="Filled Star" class="star-icon">
                             </div>
-                            <p>A web-based tool to download videos from various online platforms.</p>
+                            <p>A 24/7 trading bot powered by AI, Telegram and Flask for web server and technical analysis.</p>
                             <div class="tech-stack">
-                                <img src="assets/tech/powershell.svg" alt="Powershell" class="tech-icon">
+                                <img src="assets/tech/python.svg" alt="Python" class="tech-icon">
+                                <img src="assets/tech/telegram.svg" alt="Telegram" class="tech-icon">
+								<img src="assets/tech/flask.svg" alt="Flask" class="tech-icon">
                             </div>
-                            <a href="https://github.com/vic-viqee/online-video-downloader" target="_blank" class="comic-link">VIEW GITHUB REPO -></a>
+                            <a href="https://github.com/vic-viqee/signal_bot" target="_blank" class="comic-link">VIEW GITHUB REPO -></a>
                         </div>
                     </div>
                     <div class="project-details-back">
-                        <h4>MISSION BRIEFING: ONLINE VIDEO DOWNLOADER</h4>
-                        <p>This tool provides a simple interface for downloading videos from the web. It is built with a Python backend using FastAPI and leverages the power of yt-dlp to handle video extraction from a wide range of sources.</p>
+                        <h4>MISSION BRIEFING: CRYPTO SENTINEL</h4>
+                        <p>A 24/7 market monitor deployed on Render. It combines technical indicators (RSI) with an AI Brain (Gemma 3) that acts as a "News Guard," suppressing signals during negative market news events.</p>
                         <h5>KEY FEATURES:</h5>
                         <ul>
-                            <li>Supports a wide range of video platforms.</li>
-                            <li>Simple, user-friendly interface.</li>
-                            <li>Fast and efficient video downloading.</li>
+                            <li><strong>AI Sentiment Analysis:</strong> Uses LLMs to analyze news context before alerting.</li>
+                            <li><strong>Architecture:</strong> Zero-downtime loop with Flask keep-alive pingers.</li>
+                            <li><strong>Telegram Control:</strong> Full bi-directional command interface via Telegram API.</li>
+                        </ul>
+                        <button class="close-details-btn comic-btn">X</button>
+                    </div>
+                </article>
+
+                <article class="project-box hidden-element" data-category="fullstack">
+                    <div class="project-info-front">
+                        <div class="project-image-container">
+                            <img src="assets/images/yt-web-hub-preview.png" alt="YT Web Hub" class="project-img placeholder-img">
+                            <div class="comic-overlay">LOCAL POWERHOUSE!</div>
+                        </div>
+                        <div class="project-info">
+                            <h3>YT WEB HUB V4.0</h3>
+                            <div class="mission-difficulty">
+                                <img src="assets/icons/ui/star-filled.svg" alt="Filled Star" class="star-icon">
+                                <img src="assets/icons/ui/star-filled.svg" alt="Filled Star" class="star-icon">
+                                <img src="assets/icons/ui/star-filled.svg" alt="Filled Star" class="star-icon">
+                                <img src="assets/icons/ui/star-filled.svg" alt="Filled Star" class="star-icon">
+                                <img src="assets/icons/ui/star-filled.svg" alt="Filled Star" class="star-icon">
+                            </div>
+                            <p>A self-hosted, mobile-first web app for advanced media management.</p>
+                            <div class="tech-stack">
+                                <img src="assets/tech/python.svg" alt="Python (Flask)" class="tech-icon">
+                                <img src="assets/tech/html5.svg" alt="HTML5" class="tech-icon">
+                                <img src="assets/tech/css.svg" alt="Bootstrap" class="tech-icon">
+								<img src="assets/tech/flask.svg" alt="Flask" class="tech-icon">
+                            </div>
+                            <a href="https://github.com/vic-viqee/yt-web-hub" target="_blank" class="comic-link">VIEW GITHUB REPO -></a>
+                        </div>
+                    </div>
+                    <div class="project-details-back">
+                        <h4>MISSION BRIEFING: YT WEB HUB</h4>
+                        <p>Transforms a local machine into a centralized media server. Built with Flask and HTMX, it orchestrates complex FFmpeg operations (like lossless splitting) through a responsive mobile interface.</p>
+                        <h5>KEY FEATURES:</h5>
+                        <ul>
+                            <li><strong>SPA Architecture:</strong> Uses HTMX for real-time progress updates without reloads.</li>
+                            <li><strong>Smart Splitting:</strong> Parsing engine to chop videos based on chapters or timestamps.</li>
+                            <li><strong>Queue Management:</strong> Asynchronous background job processing.</li>
                         </ul>
                         <button class="close-details-btn comic-btn">X</button>
                     </div>
@@ -139,7 +183,7 @@
                             <div class="comic-overlay">SLICE & DICE!</div>
                         </div>
                         <div class="project-info">
-                            <h3>VIDEO SPLITTER</h3>
+                            <h3>VIDEO SPLITTER CLI</h3>
                             <div class="mission-difficulty">
                                 <img src="assets/icons/ui/star-filled.svg" alt="Filled Star" class="star-icon">
                                 <img src="assets/icons/ui/star-filled.svg" alt="Filled Star" class="star-icon">
@@ -156,12 +200,83 @@
                     </div>
                     <div class="project-details-back">
                         <h4>MISSION BRIEFING: VIDEO SPLITTER</h4>
-                        <p>A Python script that splits a large video file into smaller parts of a specified duration. Includes a progress bar using tqdm to monitor the splitting process.</p>
+                        <p>A CLI-based automation tool for media post-processing. It calculates time-deltas to precisely segment large video files into social-media-ready chunks without quality loss.</p>
                         <h5>KEY FEATURES:</h5>
                         <ul>
-                            <li>Splits large video files into smaller chunks.</li>
-                            <li>Customizable chunk duration.</li>
-                            <li>Progress bar for user feedback.</li>
+                            <li><strong>FFmpeg Wrapper:</strong> Automates complex trimming commands via Python.</li>
+                            <li><strong>Memory Management:</strong> Efficient handling of large file I/O operations.</li>
+                            <li><strong>User Feedback:</strong> Integrated tqdm for real-time progress visualization.</li>
+                        </ul>
+                        <button class="close-details-btn comic-btn">X</button>
+                    </div>
+                </article>
+
+                <article class="project-box hidden-element" data-category="backend">
+                    <div class="project-info-front">
+                        <div class="project-image-container">
+                            <img src="assets/images/caesar-cipher-preview.png" alt="Caesar Cipher" class="project-img placeholder-img">
+                            <div class="comic-overlay">TOP SECRET!</div>
+                        </div>
+                        <div class="project-info">
+                            <h3>CAESAR CIPHER</h3>
+                            <div class="mission-difficulty">
+                                <img src="assets/icons/ui/star-filled.svg" alt="Filled Star" class="star-icon">
+                                <img src="assets/icons/ui/star-filled.svg" alt="Filled Star" class="star-icon">
+                                <img src="assets/icons/ui/star-filled.svg" alt="Filled Star" class="star-icon">
+                                <img src="assets/icons/ui/star-empty.svg" alt="Empty Star" class="star-icon">
+                                <img src="assets/icons/ui/star-empty.svg" alt="Empty Star" class="star-icon">
+                            </div>
+                            <p>A cryptographic tool demonstrating substitution algorithms and modular logic.</p>
+                            <div class="tech-stack">
+                                <img src="assets/tech/python.svg" alt="Python" class="tech-icon">
+                            </div>
+                            <a href="https://github.com/vic-viqee/caesar_cipher" target="_blank" class="comic-link">VIEW GITHUB REPO -></a>
+                        </div>
+                    </div>
+                    <div class="project-details-back">
+                        <h4>MISSION BRIEFING: ENIGMA LOGIC</h4>
+                        <p>A robust CLI implementation of the classic Caesar Cipher. Demonstrates mastery of string manipulation, modular arithmetic, and ASCII character mapping.</p>
+                        <h5>KEY FEATURES:</h5>
+                        <ul>
+                            <li><strong>Algorithm Logic:</strong> Custom implementation of shift-based encryption/decryption.</li>
+                            <li><strong>Input Validation:</strong> Robust handling of non-alpha characters and case preservation.</li>
+                            <li><strong>CLI Design:</strong> Clean, loop-based user interface for continuous operation.</li>
+                        </ul>
+                        <button class="close-details-btn comic-btn">X</button>
+                    </div>
+                </article>
+				
+				<article class="project-box hidden-element" data-category="automation">
+                    <div class="project-info-front">
+                        <div class="project-image-container">
+                            <img src="assets/images/online-video-downloader-preview.png" alt="Video Downloader CLI" class="project-img placeholder-img">
+                            <div class="comic-overlay">TERMINAL POWER!</div>
+                        </div>
+                        <div class="project-info">
+                            <h3>VIDEO DOWNLOADER CLI</h3>
+                            <div class="mission-difficulty">
+                                <img src="assets/icons/ui/star-filled.svg" alt="Filled Star" class="star-icon">
+                                <img src="assets/icons/ui/star-filled.svg" alt="Filled Star" class="star-icon">
+                                <img src="assets/icons/ui/star-empty.svg" alt="Empty Star" class="star-icon">
+                                <img src="assets/icons/ui/star-empty.svg" alt="Empty Star" class="star-icon">
+                                <img src="assets/icons/ui/star-empty.svg" alt="Empty Star" class="star-icon">
+                            </div>
+                            <p>A lightweight, terminal-based video extraction tool built for speed.</p>
+                            <div class="tech-stack">
+                                <img src="assets/tech/powershell.svg" alt="PowerShell" class="tech-icon">
+                                <img src="assets/tech/terminal.svg" alt="Terminal" class="tech-icon">
+                            </div>
+                            <a href="https://github.com/vic-viqee/online-video-downloader" target="_blank" class="comic-link">VIEW GITHUB REPO -></a>
+                        </div>
+                    </div>
+                    <div class="project-details-back">
+                        <h4>MISSION BRIEFING: SHELL DOWNLOADER</h4>
+                        <p>A pure command-line automation tool script built with PowerShell. Designed for developers who prefer the terminal over GUIs for quick media extraction.</p>
+                        <h5>KEY FEATURES:</h5>
+                        <ul>
+                            <li><strong>Shell Scripting:</strong> Native PowerShell logic for seamless Windows integration.</li>
+                            <li><strong>Batch Processing:</strong> Loops through URL lists for bulk downloads.</li>
+                            <li><strong>CLI Arguments:</strong> accepts flags for format selection and resolution quality.</li>
                         </ul>
                         <button class="close-details-btn comic-btn">X</button>
                     </div>
@@ -170,7 +285,7 @@
                 <article class="project-box hidden-element" data-category="frontend">
                     <div class="project-info-front">
                         <div class="project-image-container">
-                            <img src="assets/images/choose-your-own-adventure-preview.png" alt="Choose Your Own Adventure Preview" class="project-img placeholder-img">
+                            <img src="assets/images/choose-your-own-adventure-preview.png" alt="Adventure Preview" class="project-img placeholder-img">
                             <div class="comic-overlay">YOUR FATE AWAITS!</div>
                         </div>
                         <div class="project-info">
@@ -192,25 +307,24 @@
                         </div>
                     </div>
                     <div class="project-details-back">
-                        <h4>MISSION BRIEFING: CHOOSE YOUR OWN ADVENTURE</h4>
-                        <p>This is a simple, browser-based choice adventure game built with HTML, CSS, and vanilla JavaScript. The player enters their name, decides whether to play, and navigates through a branching storyline with multiple choices and outcomes.</p>
+                        <h4>MISSION BRIEFING: ADVENTURE ENGINE</h4>
+                        <p>A lightweight interactive narrative engine. Built to demonstrate mastery of DOM manipulation and state management using pure JavaScript, with zero external dependencies.</p>
                         <h5>KEY FEATURES:</h5>
                         <ul>
-                            <li>Interactive branching narrative.</li>
-                            <li>Multiple endings based on player choices.</li>
-                            <li>Engaging text-based gameplay.</li>
+                            <li><strong>State Management:</strong> Custom object-based data structure to track narrative branching.</li>
+                            <li><strong>DOM Manipulation:</strong> Dynamic rendering of story nodes based on user input.</li>
+                            <li><strong>Performance:</strong> Optimized rendering with a near-zero initial load time.</li>
                         </ul>
                         <button class="close-details-btn comic-btn">X</button>
                     </div>
                 </article>
 
-                 </div>
+            </div>
         </section>
 
         <section id="timeline" class="comic-panel hidden-element">
             <h2 class="section-header hidden-element">MY CODING SAGA <span class="accent-text">(TIMELINE)</span></h2>
             <div class="timeline-container">
-
                 <div class="timeline-event hidden-element animate-slide-left">
                     <div class="timeline-date">2024</div>
                     <div class="timeline-caption speech-bubble left-bubble">
@@ -218,7 +332,6 @@
                         <p>Dove into HTML, CSS, and JavaScript while grinding through countless YouTube tutorials. Built my first real projects by hand.</p>
                     </div>
                 </div>
-
                 <div class="timeline-event hidden-element animate-slide-right">
                     <div class="timeline-date">2025</div>
                     <div class="timeline-caption speech-bubble right-bubble">
@@ -226,7 +339,6 @@
                         <p>Expanded into Python and Next.js. Entered the AI era using coding agents like Gemini CLI and Opencode to accelerate builds and experimentation.</p>
                     </div>
                 </div>
-
                 <div class="timeline-event hidden-element animate-slide-left">
                     <div class="timeline-date">FUTURE</div>
                     <div class="timeline-caption speech-bubble left-bubble">
@@ -234,74 +346,96 @@
                         <p>Building FluxPay into a full-scale M-Pesa automation platform: STK Push, virtual tills, auto-reconciliation, AI systems, and beyond.</p>
                     </div>
                 </div>
-
             </div>
         </section>
-
 
         <section id="skills" class="comic-panel split-panel hidden-element">
             <div class="split-left">
                 <h2 class="section-header hidden-element">SUPERPOWERS <span class="accent-text">(SKILLS)</span></h2>
                 <div class="skills-grid">
 
-                    <div class="skill-item hidden-element animate-slide-left">
-                        <h3>HTML, CSS & JavaScript</h3>
-                        <div class="skill-bar-container">
-                            <div class="skill-bar" style="width: 90%;"></div>
-                            <span class="skill-level">90%</span>
-                        </div>
-                    </div>
+					<div class="skill-item hidden-element animate-slide-left">
+						<h3>Vibecoding</h3>
+						<div class="skill-bar-container">
+							<div class="skill-bar" style="width: 98%;"></div>
+							<span class="skill-level">98%</span>
+						</div>
+					</div>
 
-                    <div class="skill-item hidden-element animate-slide-left" style="animation-delay: 0.1s;">
-                        <h3>Next.js & Modern Frontend</h3>
-                        <div class="skill-bar-container">
-                            <div class="skill-bar" style="width: 80%;"></div>
-                            <span class="skill-level">80%</span>
-                        </div>
-                    </div>
+					<div class="skill-item hidden-element animate-slide-left" style="animation-delay: 0.1s;">
+						<h3>Building with AI Agents & Prompting</h3>
+						<div class="skill-bar-container">
+							<div class="skill-bar" style="width: 95%;"></div>
+							<span class="skill-level">95%</span>
+						</div>
+					</div>
 
-                    <div class="skill-item hidden-element animate-slide-left" style="animation-delay: 0.2s;">
-                        <h3>Python & Backend Development</h3>
-                        <div class="skill-bar-container">
-                            <div class="skill-bar" style="width: 75%;"></div>
-                            <span class="skill-level">75%</span>
-                        </div>
-                    </div>
+					<div class="skill-item hidden-element animate-slide-left" style="animation-delay: 0.2s;">
+						<h3>Git / GitHub</h3>
+						<div class="skill-bar-container">
+							<div class="skill-bar" style="width: 95%;"></div>
+							<span class="skill-level">95%</span>
+						</div>
+					</div>
 
-                    <div class="skill-item hidden-element animate-slide-left" style="animation-delay: 0.3s;">
-                        <h3>AI Coding Agents (Gemini CLI, Opencode)</h3>
-                        <div class="skill-bar-container">
-                            <div class="skill-bar" style="width: 70%;"></div>
-                            <span class="skill-level">70%</span>
-                        </div>
-                    </div>
+					<div class="skill-item hidden-element animate-slide-left" style="animation-delay: 0.3s;">
+						<h3>Python</h3>
+						<div class="skill-bar-container">
+							<div class="skill-bar" style="width: 93%;"></div>
+							<span class="skill-level">93%</span>
+						</div>
+					</div>
 
-                    <div class="skill-item hidden-element animate-slide-left" style="animation-delay: 0.4s;">
-                        <h3>M-Pesa Daraja API & Automation</h3>
-                        <div class="skill-bar-container">
-                            <div class="skill-bar" style="width: 68%;"></div>
-                            <span class="skill-level">68%</span>
-                        </div>
-                    </div>
+					<div class="skill-item hidden-element animate-slide-left" style="animation-delay: 0.4s;">
+						<h3>HTML / CSS</h3>
+						<div class="skill-bar-container">
+							<div class="skill-bar" style="width: 87%;"></div>
+							<span class="skill-level">87%</span>
+						</div>
+					</div>
 
-                    <div class="skill-item hidden-element animate-slide-left" style="animation-delay: 0.5s;">
-                        <h3>Version Control (Git/GitHub)</h3>
-                        <div class="skill-bar-container">
-                            <div class="skill-bar" style="width: 85%;"></div>
-                            <span class="skill-level">85%</span>
-                        </div>
-                    </div>
+					<div class="skill-item hidden-element animate-slide-left" style="animation-delay: 0.5s;">
+						<h3>M-Pesa Daraja API</h3>
+						<div class="skill-bar-container">
+							<div class="skill-bar" style="width: 40%;"></div>
+							<span class="skill-level">40%</span>
+						</div>
+					</div>
 
-                </div>
+					<div class="skill-item hidden-element animate-slide-left" style="animation-delay: 0.6s;">
+						<h3>Automation & Bots</h3>
+						<div class="skill-bar-container">
+							<div class="skill-bar" style="width: 12%;"></div>
+							<span class="skill-level">12%</span>
+						</div>
+					</div>
+
+					<div class="skill-item hidden-element animate-slide-left" style="animation-delay: 0.7s;">
+						<h3>JavaScript</h3>
+						<div class="skill-bar-container">
+							<div class="skill-bar" style="width: 10%;"></div>
+							<span class="skill-level">10%</span>
+						</div>
+					</div>
+
+					<div class="skill-item hidden-element animate-slide-left" style="animation-delay: 0.8s;">
+						<h3>Django / FastAPI</h3>
+						<div class="skill-bar-container">
+							<div class="skill-bar" style="width: 5%;"></div>
+							<span class="skill-level">NOT STARTED</span>
+						</div>
+					</div>
+
+				</div>
             </div>
 
             <div class="split-right panel-divider">
                 <h2 class="section-header hidden-element">TRAINING ACADEMY <span class="accent-text">(EDUCATION)</span></h2>
                 <ul class="comic-list edu-list">
-
+                    
                     <li>
                         <strong>Diploma in Information Technology</strong>
-                        <span>[Embu College] | 2024 – Ongoing</span>
+                        <span>[Embu College] | 2024 – Present</span>
                     </li>
 
                     <li>
@@ -310,90 +444,59 @@
                     </li>
 
                     <li>
-                        <strong>Next.js Advanced Frontend Development</strong>
-                        <span>[YouTube + Official Docs] | Ongoing</span>
+                        <strong>HTML, CSS & JavaScript Fundamentals</strong>
+                        <span>[Self-Taught / YouTube] | 2024</span>
                     </li>
 
                     <li>
-                        <strong>Backend Engineering (Python, FastAPI, Node.js)</strong>
-                        <span>[Self-Taught + Youtube] | 2024 – Ongoing</span>
+                        <strong>Version Control (Git & GitHub)</strong>
+                        <span>[GitHub Docs + Git Bash] | 2024 – Present</span>
                     </li>
 
                     <li>
-                        <strong>AI Coding Agents (Gemini CLI, Opencode, Claude Artifacts)</strong>
-                        <span>[Self-Taught] | 2025</span>
+                        <strong>Python Programming & Automation</strong>
+                        <span>[Self-Taught] | 2024 – Present</span>
                     </li>
 
                     <li>
-                        <strong>Daraja API</strong>
-                        <span>[Safaricom Developer Portal] | 2024 – 2025</span>
+                        <strong>M-Pesa Daraja API & Financial Automation</strong>
+                        <span>[Safaricom Developer Portal] | 2025 – Present</span>
                     </li>
 
                     <li>
                         <strong>Cloud Deployment (Netlify, Vercel, Render)</strong>
-                        <span>[Self-Taught + Youtube] | 2024 – 2025</span>
+                        <span>[Documentation & Practical Deployment] | 2025 – Present</span>
                     </li>
 
                     <li>
-                        <strong>Version Control & DevOps Foundations</strong>
-                        <span>[GitHub + Git Bash + Youtube] | 2024 – 2025</span>
+                        <strong>AI Agents & Vibecoding (Gemini CLI, Opencode)</strong>
+                        <span>[Cutting-Edge AI Tools] | 2025 – Present</span>
                     </li>
 
                 </ul>
             </div>
-
         </section>
 
         <section id="awards" class="comic-panel hidden-element">
             <h2 class="section-header hidden-element">ACHIEVEMENT UNLOCKED <span class="accent-text">(AWARDS & CERTIFICATIONS)</span></h2>
             <div class="badges-grid">
 
-                <div class="badge-item hidden-element animate-pop-in">
-                    <div class="badge-graphic">
-                        <img src="assets/badge-fullstack.png" alt="Full Stack Certification">
-                    </div>
-                    <div class="badge-info">
-                        <h3>FULL STACK CERTIFIED</h3>
-                        <p>Awarded for comprehensive mastery of front-end and back-end development.</p>
-                    </div>
-                </div>
+				<div class="badge-item hidden-element animate-pop-in">
+					<div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="45ebb081-da27-41f0-96a9-f2f32ee3c1d5" data-share-badge-host="https://www.credly.com"></div>
+					<script type="text/javascript" async src="https://cdn.credly.com/assets/utilities/embed.js"></script>
+				</div>
 
-                <div class="badge-item hidden-element animate-pop-in">
-                    <div class="badge-graphic">
-                        <img src="assets/badge-react.svg" alt="React Specialist Badge">
-                    </div>
-                    <div class="badge-info">
-                        <h3>REACT SPECIALIST</h3>
-                        <p>Proficiency in building dynamic user interfaces with React.js.</p>
-                    </div>
-                </div>
+				<div class="badge-item hidden-element animate-pop-in">
+					<div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="4525fb82-ceed-4986-a227-e99a2923119e" data-share-badge-host="https://www.credly.com"></div>
+					<script type="text/javascript" async src="https://cdn.credly.com/assets/utilities/embed.js"></script>
+				</div>
 
-                <div class="badge-item hidden-element animate-pop-in">
-                    <div class="badge-graphic">
-                        <img src="assets/badge-nodejs.png" alt="Node.js Master Badge">
-                    </div>
-                    <div class="badge-info">
-                        <h3>NODE.JS MASTER</h3>
-                        <p>Expertise in server-side JavaScript and scalable backend development.</p>
-                    </div>
-                </div>
-                <div class="badge-item hidden-element animate-pop-in">
-                    <div class="badge-graphic">
-                        <img src="assets/badge-python.png" alt="Node.js Master Badge">
-                    </div>
-                    <div class="badge-info">
-                        <h3>PYTHON MASTER</h3>
-                        <p>Expertise in Python and backend frameworks like FAstAPI</p>
-                    </div>
-                </div>
-
-            </div>
+			</div>
         </section>
 
         <section id="tools" class="comic-panel hidden-element">
             <h2 class="section-header hidden-element">GADGETS & ARSENAL <span class="accent-text">(FAVORITE TOOLS)</span></h2>
             <div class="tools-grid">
-
                 <div class="tool-item hidden-element animate-pop-in">
                     <div class="tool-graphic">
                         <img src="assets/tech/vscode.svg" alt="VSCode">
@@ -403,7 +506,6 @@
                         <p>My primary code editor, where the magic happens.</p>
                     </div>
                 </div>
-
                 <div class="tool-item hidden-element animate-pop-in">
                     <div class="tool-graphic">
                         <img src="assets/tech/github.svg" alt="GitHub">
@@ -413,7 +515,6 @@
                         <p>My mission control for version control and collaboration.</p>
                     </div>
                 </div>
-
                 <div class="tool-item hidden-element animate-pop-in">
                     <div class="tool-graphic">
                         <img src="assets/images/gemini.webp" alt="Gemini CLI">
@@ -446,58 +547,37 @@
 
         <section id="hobbies" class="comic-panel hidden-element">
             <h2 class="section-header hidden-element">OFF-DUTY PURSUITS <span class="accent-text">(HOBBIES & INTERESTS)</span></h2>
-
             <div class="hobbies-grid">
-
-                <!-- CATEGORY: TECH ADVENTURES -->
                 <div class="hobby-category-header hidden-element">TECH ADVENTURES</div>
-
                 <div class="hobby-bubble speech-bubble left-bubble hidden-element animate-pop-in">
                     <p>AI EXPERIMENTATION: Testing Gemini CLI, Opencode, and building small AI agents.</p>
                 </div>
-
-                <div class="hobby-bubble speech-bubble right-bubble hidden-element animate-pop-in" style="animation-delay: 0.1s;">
-                    <p>UI/UX EXPLORATION: Studying interface design, patterns, and modern aesthetics.</p>
-                </div>
-
                 <div class="hobby-bubble speech-bubble left-bubble hidden-element animate-pop-in" style="animation-delay: 0.2s;">
                     <p>TECH YOUTUBE QUESTS: Binge-learning new frameworks, tools, and dev tips.</p>
                 </div>
-
                 <div class="hobby-bubble speech-bubble right-bubble hidden-element animate-pop-in" style="animation-delay: 0.3s;">
                     <p>AUTOMATION MINI-PROJECTS: Creating scripts and tiny tools that solve everyday problems.</p>
                 </div>
-
-                <!-- CATEGORY: COMIC-STYLE MISSIONS -->
                 <div class="hobby-category-header hidden-element">HEROIC SIDE QUESTS</div>
-
                 <div class="hobby-bubble speech-bubble right-bubble hidden-element animate-pop-in" style="animation-delay: 0.5s;">
                     <p>BUG HUNTING: Tracking and eliminating code villains across the multiverse.</p>
                 </div>
-
                 <div class="hobby-bubble speech-bubble left-bubble hidden-element animate-pop-in" style="animation-delay: 0.6s;">
                     <p>CODING MARATHONS: All-night missions powered by focus mode and determination.</p>
                 </div>
-
                 <div class="hobby-bubble speech-bubble right-bubble hidden-element animate-pop-in" style="animation-delay: 0.7s;">
                     <p>IDEA FORGING: Crafting micro-SaaS concepts, futuristic tools, and bold side projects.</p>
                 </div>
-
                 <div class="hobby-bubble speech-bubble left-bubble hidden-element animate-pop-in" style="animation-delay: 0.8s;">
                     <p>YOUTUBE QUESTING: Diving into deep tutorials, hacks, and knowledge vaults.</p>
                 </div>
-
-                <!-- CATEGORY: PROFESSIONAL GROWTH -->
                 <div class="hobby-category-header hidden-element">GROWTH & MASTERY</div>
-
                 <div class="hobby-bubble speech-bubble right-bubble hidden-element animate-pop-in" style="animation-delay: 0.9s;">
                     <p>ENTREPRENEURSHIP: Studying SaaS, monetization, and building products like FluxPay.</p>
                 </div>
-
                 <div class="hobby-bubble speech-bubble left-bubble hidden-element animate-pop-in" style="animation-delay: 1s;">
                     <p>API & SYSTEM DESIGN: Learning backend architecture, patterns, and modern API workflows.</p>
                 </div>
-
             </div>
         </section>
 
@@ -515,7 +595,7 @@
                     <img src="assets/comic-avatar.png" alt="Victor Lewis Murimi Comic Avatar" class="comic-avatar">
                 </div>
                 <div class="speech-bubble right-bubble hidden-element">
-                    <p>My name is Victor Lewis Murimi. I'm a passionate developer based in Kenya. Every great hero has an origin story; mine began with a curiosity for how things work on the web. Today, I use my powers to build robust, user-friendly digital experiences. When I'm not coding, I'm [mention a hobby] or plotting my next big project.</p>
+                    <p>My name is Victor Lewis Murimi. I'm a passionate developer based in Kenya. Every great hero has an origin story; mine began with a curiosity for how things work on the web. Today, I use my powers to build robust, user-friendly digital experiences. When I'm not coding, I'm playing chess, watching football or plotting my next big project.</p>
                 </div>
                 <div id="fun-fact-bubble" class="speech-bubble left-bubble hidden-element">
                     <p>DID YOU KNOW? <span id="fun-fact-text">I once debugged for 48 hours straight fueled by coffee and sheer willpower!</span></p>
@@ -526,14 +606,12 @@
         <section id="contact" class="comic-panel contact-panel hidden-element">
             <h2 class="section-header hidden-element">SEND A SIGNAL</h2>
             <p class="contact-intro">Need a hero for your next project? Use the secure channels below.</p>
-
             <div class="contact-grid">
                 <a href="mailto:murimivictorlewis@gmail.com" class="contact-card hidden-element">
                     <span class="icon">✉️</span>
                     <span class="detail">murimivictorlewis@gmail.com</span>
                 </a>
             </div>
-
             <div class="social-links">
                 <h3>ALLIED NETWORKS:</h3>
                 <a href="https://github.com/vic-viqee" target="_blank" class="social-btn hidden-element">
@@ -553,9 +631,8 @@
                     <span>WHATSAPP</span>
                 </a>
             </div>
-
             <footer class="comic-footer">
-                <p>© 2025 VICTOR LEWIS MURIMI. ISSUE #1. ALL RIGHTS RESERVED.</p>
+                <p>© 2026 VICTOR LEWIS MURIMI. ISSUE #1. ALL RIGHTS RESERVED.</p>
                 <p style="font-size: 0.8rem;">Built with pure HTML/CSS/JS.</p>
                 <span id="gemini-quest-trigger" style="display: none;">GEMINI</span>
             </footer>
@@ -563,6 +640,6 @@
 
     </main>
 
-    <script src="script.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>

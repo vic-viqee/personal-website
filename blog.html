@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog | Victor Lewis Murimi</title>
     <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Rubik:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <nav class="comic-nav">
@@ -20,8 +20,7 @@
         </ul>
         <div class="theme-switcher">
             <button data-theme="default" class="theme-btn">Light</button>
-            <button data-theme="dark" class="theme-btn">Noir</button>
-            <button data-theme="cyberpunk" class="theme-btn">Cyber</button>
+            <button data-theme="dark" class="theme-btn">Dark</button>
         </div>
         <div class="nav-burger">☰</div>
     </nav>
@@ -31,23 +30,33 @@
             <h1 class="section-header">THE ARCHIVES <span class="accent-text">(BLOG)</span></h1>
 
             <div class="blog-posts-grid">
-                <!-- Blog Post 1 -->
                 <article class="blog-post-card">
                     <div class="post-image-container">
                         <img src="assets/images/blog-post-1-preview.png" alt="Blog Post 1 Preview">
                     </div>
                     <div class="post-info">
-                        <h3><a href="post-1.html">My Journey into Web Development</a></h3>
+                        <h3><a href="blog/post-1.html">My Journey into Web Development</a></h3>
                         <p class="post-meta">Published on December 12, 2025</p>
                         <p class="post-excerpt">A look back at how I started my journey as a developer, the challenges I faced, and the lessons I learned along the way.</p>
-                        <a href="post-1.html" class="comic-link">Read More -></a>
+                        <a href="blog/post-1.html" class="comic-link">Read More -></a>
                     </div>
                 </article>
-
-                <!-- More blog post cards will go here -->
+				
+				<article class="blog-post-card">
+                    <div class="post-image-container">
+                        <img src="assets/images/blog-post-2-preview.png" alt="FluxPay Deployment Chaos"> 
+                    </div>
+                    <div class="post-info">
+                        <h3><a href="blog/post-2.html">3 Days of Hosting Hell: Deploying FluxPay</a></h3>
+                        <p class="post-meta">Published on January 3, 2026</p>
+                        <p class="post-excerpt">A breakdown of the 72-hour nightmare of deploying a MERN stack app to Render, and the specific configurations that finally made it work.</p>
+                        <a href="blog/post-2.html" class="comic-link">Read More -></a>
+                    </div>
+                </article>
 
             </div>
         </section>
     </main>
+    <script src="js/script.js"></script>
 </body>
 </html>

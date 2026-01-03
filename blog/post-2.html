@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3 Days of Hosting Hell: Deploying FluxPay to Render | Victor Lewis Murimi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Rubik:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="comic-nav">
+        <div class="nav-logo">VL MURIMI</div>
+        <ul class="nav-links">
+            <li><a href="../index.html#home">HQ</a></li>
+            <li><a href="../index.html#projects">Missions</a></li>
+            <li><a href="../index.html#skills">Powers</a></li>
+            <li><a href="../index.html#about">Origin</a></li>
+            <li><a href="../index.html#contact">Signal</a></li>
+            <li><a href="../blog.html">Blog</a></li>
+        </ul>
+        <div class="theme-switcher">
+            <button data-theme="default" class="theme-btn">Light</button>
+            <button data-theme="dark" class="theme-btn">Dark</button>
+        </div>
+        <div class="nav-burger">☰</div>
+    </nav>
+
+    <main class="webtoon-container">
+        <section id="blog-post" class="comic-panel">
+            <h1 class="section-header">3 Days of Hosting Hell: Deploying FluxPay</h1>
+            <div class="post-meta">Published on January 3, 2026</div>
+            
+            <div class="post-content">
+                <img src="assets/images/blog-post-2-full.png" alt="FluxPay Deployment Chaos" class="post-full-image">
+                
+                <h2>The "It Works on Localhost" Trap</h2>
+                <p>You know that feeling when your full-stack app finally runs perfectly on your laptop? The API is talking to the frontend, MongoDB is storing data, and the JWT auth is actually authenticating. You feel invincible. A coding god. That was me with FluxPay last week.</p>
+                
+                <p>I thought the hard part was over. I thought deploying to Render would be a simple victory lap. "Just git push and go," I told myself.</p>
+
+                <p><strong>I was wrong. Dead wrong.</strong></p>
+
+                <h2>The 72-Hour Nightmare</h2>
+                <p>What followed was three days of absolute frustration. I'm talking about the kind of debugging where you stare at the screen at 3 AM, fueled by cold coffee, wondering if you should just become a goat farmer instead.</p>
+
+                <p>The problem? <strong>The MERN Stack structure.</strong> FluxPay isn't just a static HTML site. It has a React frontend (which needs to be built) and a Node.js backend (which needs a server). Trying to get Render to understand which folder was which inside my repo was a disaster.</p>
+
+                <h3>The Rookie Mistakes I Made:</h3>
+                <ul>
+                    <li><strong>The "Root Directory" Mess:</strong> I kept telling Render to look for the backend in the root folder, but my code was nested. Result? <code>Error: Cannot find module 'server.js'</code>. Over and over again.</li>
+                    <li><strong>The Build Command Struggle:</strong> I tried running <code>npm install</code> on the frontend, forgetting that Render needs to run <code>npm run build</code> to generate the static files. My site deployed, but it was just a blank white screen of death.</li>
+                    <li><strong>The Environment Variable trap:</strong> This was the one that kept me up the longest. My local <code>.env</code> file wasn't pushed to GitHub (obviously, for security). I deployed the app, and it crashed instantly because it couldn't find <code>MONGO_URI</code>. I felt like an idiot when I realized I hadn't added them to the Render dashboard.</li>
+                </ul>
+
+                <h2>How to Actually Host FluxPay (So You Don't Suffer)</h2>
+                <p>If you're stuck in the same loop, here is the solution that finally worked for me. It turns out, you can't just "host the repo." You have to treat them as two separate entities.</p>
+
+                <h3>1. Separate the Powers</h3>
+                <p>Don't try to host everything as one "Web Service." Create two separate services on Render:</p>
+                <ul>
+                    <li><strong>Backend:</strong> Create a "Web Service". Point it to your server folder. Set the Build Command to <code>npm install</code> and the Start Command to <code>node index.js</code>.</li>
+                    <li><strong>Frontend:</strong> Create a "Static Site". Point it to your client folder. Set the Build Command to <code>npm run build</code> and the Publish Directory to <code>dist</code> (or <code>build</code>).</li>
+                </ul>
+
+                <h3>2. The Magic of Environment Variables</h3>
+                <p>Go to the "Environment" tab in Render for your Backend service. Manually add every single variable from your <code>.env</code> file. <br><code>MONGO_URI</code>, <code>JWT_SECRET</code>, <code>PORT</code>. <br>Without these, your app is just an empty shell.</p>
+
+                <h3>3. The CORS Fix</h3>
+                <p>Once both were live, my frontend couldn't talk to my backend. Why? CORS. I had to go back into my Node.js code and whitelist my new Render frontend URL in the CORS configuration. One simple line of code, hours of headache.</p>
+
+                <h2>The Victory</h2>
+                <p>When I finally saw that green "Live" badge and logged into FluxPay from my phone, the relief was unreal. It wasn't just about the code working; it was about beating the server environment.</p>
+                
+                <p>Hosting isn't just "uploading files." It's understanding how the internet actually glue things together. I lost sleep, but I gained a skill.</p>
+            </div>
+        </section>
+    </main>
+    <script src="../js/script.js"></script>
+</body>
+</html>
