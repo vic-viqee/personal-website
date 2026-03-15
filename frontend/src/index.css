@@ -1,0 +1,76 @@
+:root {
+  --c-black: #0d0d0d;
+  --c-white: #ffffff;
+  --c-grey-light: #f4f4f4;
+  --c-grey-dark: #333333;
+  --c-accent: #4DB8FF;
+  --c-accent-rgb: 77, 184, 255;
+  
+  --border-thick: 4px solid var(--c-black);
+  --border-thin: 2px solid var(--c-black);
+  --shadow-hard: 6px 6px 0px var(--c-black);
+  --shadow-soft: 3px 3px 0px var(--c-black);
+
+  --font-heading: 'Bangers', sans-serif;
+  --font-body: 'JetBrains Mono', monospace;
+}
+
+[data-theme='dark'] {
+  --c-black: #e0e0e0;
+  --c-white: #121212;
+  --c-grey-light: #1e1e1e;
+  --c-grey-dark: #000000;
+  --c-accent: #4DB8FF;
+  --c-accent-rgb: 77, 184, 255;
+  --shadow-hard: 6px 6px 0px #000000;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--c-white);
+  color: var(--c-black);
+  font-family: var(--font-body);
+  background-image: radial-gradient(var(--c-grey-dark) 1px, transparent 1px);
+  background-size: 20px 20px;
+  overflow-x: hidden;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.comic-panel {
+  background: var(--c-white);
+  border: var(--border-thick);
+  box-shadow: var(--shadow-hard);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.comic-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: var(--c-accent);
+  color: var(--c-black);
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  text-decoration: none;
+  border: var(--border-thick);
+  box-shadow: var(--shadow-soft);
+  cursor: pointer;
+  transition: all 0.1s ease;
+}
+
+.comic-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0px var(--c-black);
+}

@@ -1,37 +1,87 @@
-# Victor Lewis Murimi - The Portfolio Issue
+# VL Murimi | The Portfolio Issue (Dynamic Rebuild)
 
-This is the source code for the personal portfolio website of Victor Lewis Murimi. The website is designed with a unique comic book/tech/gamified aesthetic to showcase projects, skills, and personality.
+This is a modern, dynamic rebuild of the VL Murimi portfolio website, transitioning from static HTML/CSS/JS to a full-stack application.
 
-## What it Does
+## 🚀 Tech Stack
+- **Frontend:** React (TypeScript) + Vite + React Router
+- **Backend:** FastAPI (Python) + SQLModel (SQLAlchemy + Pydantic)
+- **Database:** PostgreSQL (via Docker)
+- **Assistant:** Telegram AI Bot (aiogram)
 
-*   **Showcases Projects:** Displays a grid of projects with details, links, and difficulty ratings.
-*   **Highlights Skills:** Features a "Superpowers" section with skill bars and an "Arsenal" of favorite tools.
-*   **Tells a Story:** Includes a comic-strip style timeline of the developer's journey.
-*   **Themed Experience:** Offers multiple themes (Light, Noir, Cyberpunk) that change the look and feel of the site.
-*   **Interactive Elements:** Features animated panels, flippable project cards, and a hidden "Gemini" mini-quest.
-*   **Blog:** Includes a static blog to share articles and insights.
+---
 
-## How to Set Up and Run
+## 🛠️ Local Development Setup
 
-This is a static website built with pure HTML, CSS, and vanilla JavaScript. No complex build process is required.
+### 1. Prerequisites
+Ensure you have the following installed:
+- [Docker & Docker Compose](https://docs.docker.com/get-docker/)
+- [Node.js (v18+)](https://nodejs.org/)
+- [Python 3.10+](https://www.python.org/)
 
-1.  **Clone the repository:**
-    ```bash
-    git clone https://github.com/your-username/your-repo-name.git
-    ```
-2.  **Navigate to the project directory:**
-    ```bash
-    cd your-repo-name
-    ```
-3.  **Open `index.html` in your browser:**
-    *   Simply open the `index.html` file in your web browser to view the website.
-    *   For the best experience, it is recommended to serve the files using a local web server to handle asset loading correctly. You can use the VS Code "Live Server" extension or a simple Python server:
-      ```bash
-      # If you have Python 3
-      python -m http.server
-      ```
-      Then, navigate to `http://localhost:8000` in your browser.
+### 2. Database Setup (Docker)
+Start the PostgreSQL database and pgAdmin:
+```bash
+docker-compose up -d
+```
+*Note: The database is configured to run on port **5433** to avoid conflicts with local Postgres installations.*
 
-## Adding a New Blog Post
+### 3. Backend Setup (FastAPI)
+1. Navigate to the backend directory:
+   ```bash
+   cd backend
+   ```
+2. Create and activate a virtual environment:
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
+3. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+4. Update your `.env` file with your `TELEGRAM_BOT_TOKEN`.
+5. Seed the database with legacy projects and blog posts:
+   ```bash
+   python3 seed.py
+   ```
+6. Start the FastAPI server:
+   ```bash
+   uvicorn main:app --reload
+   ```
+   *The API will be available at: http://localhost:8000*
 
-To add a new blog post, simply create a new HTML file (e.g., `post-2.html`) in the root directory and add a corresponding card to the `blog.html` file.
+### 4. Frontend Setup (React)
+1. Navigate to the frontend directory:
+   ```bash
+   cd frontend
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
+   *The website will be available at: http://localhost:5173*
+
+### 5. Telegram Assistant
+To run the Telegram bot separately:
+```bash
+cd backend
+source venv/bin/activate
+python3 assistant.py
+```
+
+---
+
+## 📁 Project Structure
+- `backend/`: FastAPI application, database models, and seeding scripts.
+- `frontend/`: React application and assets.
+- `frontend/legacy-static/`: Original static HTML/CSS/JS files (for reference and seeding).
+- `docker-compose.yml`: Local infrastructure setup (Postgres + pgAdmin).
+
+## 🦸‍♂️ Hero Commands (Cheat Sheet)
+- **Start All (Services):** `docker-compose up -d`
+- **Stop All:** `docker-compose down`
+- **Update Database:** `python3 seed.py` (Run inside `backend/` with venv active)
