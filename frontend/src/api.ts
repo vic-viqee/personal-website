@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = '/api';
+const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
 
 export interface Project {
   id: number;
@@ -54,6 +54,19 @@ export interface Award {
   badge_id?: string;
   is_certificate: boolean;
   link?: string;
+}
+
+export interface Tool {
+  id: number;
+  name: string;
+  description: string;
+  icon_url: string;
+}
+
+export interface Hobby {
+  id: number;
+  name: string;
+  side: string;
 }
 
 export const fetchProjects = async (): Promise<Project[]> => {
