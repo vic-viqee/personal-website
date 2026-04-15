@@ -123,7 +123,7 @@ const Admin: React.FC = () => {
           <div>
             <label style={{ display: 'block', fontWeight: 'bold', marginBottom: '0.5rem' }}>EXCERPT (BRIEF SUMMARY):</label>
             <input 
-              type="text' 
+              type="text" 
               value={excerpt} 
               onChange={(e) => setExcerpt(e.target.value)} 
               required 
