@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: portfolio-backend
+    env: python
+    buildCommand: cd backend && pip install -r requirements.txt
+    startCommand: cd backend && uvicorn main:app --host 0.0.0.0 --port $PORT
+    rootDirectory: backend
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: neondb
+          property: connectionString
