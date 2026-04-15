@@ -1,73 +1,121 @@
-# React + TypeScript + Vite
+# Frontend | VL Murimi Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React 19 + TypeScript + Vite application with React Router for the portfolio website.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🚀 Quick Start
 
-## React Compiler
+```bash
+# Install dependencies
+npm install
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Start development server
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Visit http://localhost:5173
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 📁 Structure
+
 ```
+src/
+├── components/
+│   ├── Admin.tsx          # Admin dashboard for content management
+│   ├── BlogList.tsx      # Blog listing page
+│   ├── BlogPostView.tsx  # Individual blog post view
+│   ├── CodingSaga.tsx   # Timeline component
+│   ├── ContactSection.tsx
+│   ├── GadgetArsenal.tsx # Tools section
+│   ├── OffDutyPursuits.tsx # Hobbies section
+│   ├── ProjectCard.tsx   # Project display card
+│   ├── Superpowers.tsx  # Skills section with animations
+│   └── TrainingAcademy.tsx # Education section
+├── api.ts                # API client functions
+├── App.tsx               # Main app with routing
+├── index.css            # Global styles and CSS variables
+└── main.tsx             # Entry point
+```
+
+---
+
+## 🎨 Features
+
+- **React Router** for client-side routing
+- **Dark/Light Theme** toggle
+- **Animated Skills** with staggered reveals and level badges
+- **Responsive Design** for all screen sizes
+- **Comic Book Theme** with custom fonts (Bangers, JetBrains Mono)
+
+---
+
+## 🔧 Configuration
+
+### Environment Variables
+
+Create a `.env` file (or set in deployment):
+
+```env
+VITE_API_URL=http://localhost:8000
+VITE_ADMIN_SECRET=your_admin_secret
+```
+
+### Build for Production
+
+```bash
+npm run build
+```
+
+Output is in the `dist/` folder.
+
+---
+
+## 📱 Routes
+
+| Path | Description |
+|------|-------------|
+| `/` | Home - Hero, projects, timeline, skills, contact |
+| `/skills` | Skills/superpowers page with animations |
+| `/timeline` | Coding journey timeline |
+| `/blog` | Blog posts listing |
+| `/blog/:slug` | Individual blog post |
+| `/admin` | Content management dashboard |
+
+---
+
+## 🛠️ Tech Stack
+
+- React 19
+- TypeScript
+- Vite 8
+- React Router 7
+- Axios
+- CSS Variables for theming
+
+---
+
+## 🎯 Customization
+
+### Adding New Sections
+
+1. Create component in `src/components/`
+2. Add route in `App.tsx`
+3. Add nav link in the header
+
+### Theme Colors
+
+Edit CSS variables in `src/index.css`:
+
+```css
+:root {
+  --c-accent: #4DB8FF;
+  --c-black: #0d0d0d;
+  --c-white: #ffffff;
+}
+```
+
+---
+
+&copy; 2026 Victor Lewis Murimi
