@@ -143,6 +143,8 @@ function App() {
           
           <nav style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
             <Link to="/" className="comic-btn" style={{ fontSize: '1rem', padding: '10px' }}>HQ</Link>
+            <Link to="/skills" className="comic-btn" style={{ fontSize: '1rem', padding: '10px' }}>POWERS</Link>
+            <Link to="/timeline" className="comic-btn" style={{ fontSize: '1rem', padding: '10px' }}>SAGA</Link>
             <Link to="/blog" className="comic-btn" style={{ fontSize: '1rem', padding: '10px' }}>INTEL</Link>
             <button onClick={toggleTheme} className="comic-btn" style={{ fontSize: '1rem', padding: '10px' }}>
               {theme === 'light' ? 'DARK' : 'LIGHT'}
@@ -155,6 +157,8 @@ function App() {
           <Route path="/blog" element={<BlogList />} />
           <Route path="/blog/:slug" element={<BlogPostView />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/skills" element={<Superpowers />} />
+          <Route path="/timeline" element={<CodingSaga />} />
         </Routes>
 
         <footer style={{ marginTop: '5rem', padding: '2rem', borderTop: 'var(--border-thick)', textAlign: 'center' }}>
