@@ -121,6 +121,44 @@ class ProjectCreate(BaseModel):
     mission_briefing: Optional[str] = None
 
 
+class SkillCreate(BaseModel):
+    name: str
+    level: int
+    category: str = "superpower"
+
+
+class TimelineEventCreate(BaseModel):
+    year: str
+    title: str
+    description: str
+    side: str = "left"
+
+
+class EducationEntryCreate(BaseModel):
+    degree: str
+    institution: str
+    years: str = ""
+
+
+class AwardCreate(BaseModel):
+    title: str
+    host: Optional[str] = None
+    badge_id: Optional[str] = None
+    is_certificate: bool = False
+    link: Optional[str] = None
+
+
+class ToolCreate(BaseModel):
+    name: str
+    description: str
+    icon_url: str
+
+
+class HobbyCreate(BaseModel):
+    name: str
+    side: str = "left"
+
+
 ADMIN_SECRET = os.getenv("ADMIN_SECRET", "vl-murimi-secret")
 
 
@@ -172,6 +210,110 @@ def create_project(
     session.commit()
     session.refresh(db_project)
     return db_project
+
+
+@app.post("/skills", response_model=Skill)
+def create_skill(
+    skill_in: SkillCreate,
+    session: Session = Depends(get_session),
+    _: bool = Depends(verify_admin_secret),
+):
+    db_skill = Skill(
+        name=skill_in.name,
+        level=skill_in.level,
+        category=skill_in.category,
+    )
+    session.add(db_skill)
+    session.commit()
+    session.refresh(db_skill)
+    return db_skill
+
+
+@app.post("/timeline", response_model=TimelineEvent)
+def create_timeline_event(
+    event_in: TimelineEventCreate,
+    session: Session = Depends(get_session),
+    _: bool = Depends(verify_admin_secret),
+):
+    db_event = TimelineEvent(
+        year=event_in.year,
+        title=event_in.title,
+        description=event_in.description,
+        side=event_in.side,
+    )
+    session.add(db_event)
+    session.commit()
+    session.refresh(db_event)
+    return db_event
+
+
+@app.post("/education", response_model=EducationEntry)
+def create_education(
+    edu_in: EducationEntryCreate,
+    session: Session = Depends(get_session),
+    _: bool = Depends(verify_admin_secret),
+):
+    db_edu = EducationEntry(
+        degree=edu_in.degree,
+        institution=edu_in.institution,
+        years=edu_in.years,
+    )
+    session.add(db_edu)
+    session.commit()
+    session.refresh(db_edu)
+    return db_edu
+
+
+@app.post("/awards", response_model=Award)
+def create_award(
+    award_in: AwardCreate,
+    session: Session = Depends(get_session),
+    _: bool = Depends(verify_admin_secret),
+):
+    db_award = Award(
+        title=award_in.title,
+        host=award_in.host,
+        badge_id=award_in.badge_id,
+        is_certificate=award_in.is_certificate,
+        link=award_in.link,
+    )
+    session.add(db_award)
+    session.commit()
+    session.refresh(db_award)
+    return db_award
+
+
+@app.post("/tools", response_model=Tool)
+def create_tool(
+    tool_in: ToolCreate,
+    session: Session = Depends(get_session),
+    _: bool = Depends(verify_admin_secret),
+):
+    db_tool = Tool(
+        name=tool_in.name,
+        description=tool_in.description,
+        icon_url=tool_in.icon_url,
+    )
+    session.add(db_tool)
+    session.commit()
+    session.refresh(db_tool)
+    return db_tool
+
+
+@app.post("/hobbies", response_model=Hobby)
+def create_hobby(
+    hobby_in: HobbyCreate,
+    session: Session = Depends(get_session),
+    _: bool = Depends(verify_admin_secret),
+):
+    db_hobby = Hobby(
+        name=hobby_in.name,
+        side=hobby_in.side,
+    )
+    session.add(db_hobby)
+    session.commit()
+    session.refresh(db_hobby)
+    return db_hobby
 
 
 @app.get("/blog", response_model=List[BlogPost])
