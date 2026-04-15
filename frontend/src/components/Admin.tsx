@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
-const API_BASE_URL = import.meta.env.VITE_API_URL || '';
+import { API_BASE_URL } from '../api.ts';
 const ADMIN_SECRET = import.meta.env.VITE_ADMIN_SECRET || 'vl-murimi-secret';
 
 type Tab = 'blog' | 'project' | 'skill' | 'timeline' | 'education' | 'award' | 'tool' | 'hobby';

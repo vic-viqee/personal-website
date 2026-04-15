@@ -1,5 +1,18 @@
 services:
   - type: web
+    name: personal-website-frontend
+    env: static
+    rootDirectory: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_URL
+        sync: false
+  - type: web
     name: portfolio-backend
     env: python
     buildCommand: cd backend && pip install -r requirements.txt
