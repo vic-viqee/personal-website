@@ -106,6 +106,11 @@ export const fetchAwards = async (): Promise<Award[]> => {
   return response.data;
 };
 
+export const updateAward = async (id: number, data: Partial<Award>): Promise<Award> => {
+  const response = await axios.put(`${API_BASE_URL}/awards/${id}`, data);
+  return response.data;
+};
+
 export const fetchTools = async (): Promise<Tool[]> => {
   const response = await axios.get(`${API_BASE_URL}/tools`);
   return response.data;

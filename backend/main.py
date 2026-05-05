@@ -283,6 +283,26 @@ def create_award(
     return db_award
 
 
+@app.put("/awards/{award_id}", response_model=Award)
+def update_award(
+    award_id: int,
+    award_in: AwardCreate,
+    session: Session = Depends(get_session),
+    _: bool = Depends(verify_admin_secret),
+):
+    db_award = session.get(Award, award_id)
+    if not db_award:
+        raise HTTPException(status_code=404, detail="Award not found")
+    db_award.title = award_in.title
+    db_award.host = award_in.host
+    db_award.badge_id = award_in.badge_id
+    db_award.is_certificate = award_in.is_certificate
+    db_award.link = award_in.link
+    session.commit()
+    session.refresh(db_award)
+    return db_award
+
+
 @app.post("/tools", response_model=Tool)
 def create_tool(
     tool_in: ToolCreate,

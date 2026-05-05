@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { API_BASE_URL } from '../api.ts';
+import { API_BASE_URL, fetchAwards, updateAward } from '../api.ts';
+import type { Award } from '../api.ts';
 const ADMIN_SECRET = import.meta.env.VITE_ADMIN_SECRET || 'vl-murimi-secret';
 
 type Tab = 'blog' | 'project' | 'skill' | 'timeline' | 'education' | 'award' | 'tool' | 'hobby';
@@ -14,6 +15,54 @@ const Admin: React.FC = () => {
   };
 
   const clearStatus = () => setStatus(null);
+
+  // ============ AWARD STATES ============
+  const [awardTitle, setAwardTitle] = useState('');
+  const [awardHost, setAwardHost] = useState('');
+  const [awardBadgeId, setAwardBadgeId] = useState('');
+  const [awardIsCert, setAwardIsCert] = useState(false);
+  const [awardLink, setAwardLink] = useState('');
+  const [awardList, setAwardList] = useState<Award[]>([]);
+  const [editingAwardId, setEditingAwardId] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (activeTab === 'award') {
+      fetchAwards().then(setAwardList).catch(console.error);
+    }
+  }, [activeTab]);
+
+  const handleAwardEdit = (award: Award) => {
+    setEditingAwardId(award.id);
+    setAwardTitle(award.title);
+    setAwardHost(award.host || '');
+    setAwardBadgeId(award.badge_id || '');
+    setAwardIsCert(award.is_certificate);
+    setAwardLink(award.link || '');
+  };
+
+  const handleAwardUpdate = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editingAwardId) return;
+    setStatus('UPDATING AWARD...');
+    try {
+      await updateAward(editingAwardId, {
+        title: awardTitle,
+        host: awardHost || undefined,
+        badge_id: awardBadgeId || undefined,
+        is_certificate: awardIsCert,
+        link: awardLink || undefined
+      });
+      setStatus('AWARD UPDATED! ✨');
+      setAwardTitle(''); setAwardHost(''); setAwardBadgeId(''); setAwardIsCert(false); setAwardLink('');
+      setEditingAwardId(null);
+      fetchAwards().then(setAwardList);
+    } catch (error) { setStatus('FAILED! 🚩'); }
+  };
+
+  const handleAwardCancel = () => {
+    setEditingAwardId(null);
+    setAwardTitle(''); setAwardHost(''); setAwardBadgeId(''); setAwardIsCert(false); setAwardLink('');
+  };
 
   // ============ BLOG POST STATES ============
   const [title, setTitle] = useState('');
@@ -46,13 +95,6 @@ const Admin: React.FC = () => {
   const [eduDegree, setEduDegree] = useState('');
   const [eduInstitution, setEduInstitution] = useState('');
   const [eduYears, setEduYears] = useState('');
-
-  // ============ AWARD STATES ============
-  const [awardTitle, setAwardTitle] = useState('');
-  const [awardHost, setAwardHost] = useState('');
-  const [awardBadgeId, setAwardBadgeId] = useState('');
-  const [awardIsCert, setAwardIsCert] = useState(false);
-  const [awardLink, setAwardLink] = useState('');
 
   // ============ TOOL STATES ============
   const [toolName, setToolName] = useState('');
@@ -127,8 +169,8 @@ const Admin: React.FC = () => {
     setStatus('ADDING AWARD...');
     try {
       await axios.post(`${API_BASE_URL}/awards`, {
-        title: awardTitle, host: awardHost || null, badge_id: awardBadgeId || null,
-        is_certificate: awardIsCert, link: awardLink || null
+        title: awardTitle, host: awardHost || undefined, badge_id: awardBadgeId || undefined,
+        is_certificate: awardIsCert, link: awardLink || undefined
       }, { headers });
       setStatus('AWARD EARNED! 🏆');
       setAwardTitle(''); setAwardHost(''); setAwardBadgeId(''); setAwardIsCert(false); setAwardLink('');
@@ -261,17 +303,45 @@ const Admin: React.FC = () => {
 
       {/* AWARD */}
       {activeTab === 'award' && (
-        <form onSubmit={handleAwardSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-          <input type="text" placeholder="Award Title" value={awardTitle} onChange={e => setAwardTitle(e.target.value)} required style={inputStyle} />
-          <input type="text" placeholder="Host/Issuer (optional)" value={awardHost} onChange={e => setAwardHost(e.target.value)} style={inputStyle} />
-          <input type="text" placeholder="Badge ID (from Credly)" value={awardBadgeId} onChange={e => setAwardBadgeId(e.target.value)} style={inputStyle} />
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <input type="checkbox" checked={awardIsCert} onChange={e => setAwardIsCert(e.target.checked)} />
-            <label>Is Certificate?</label>
-          </div>
-          <input type="url" placeholder="Link (optional)" value={awardLink} onChange={e => setAwardLink(e.target.value)} style={inputStyle} />
-          <button type="submit" className="comic-btn">ADD AWARD! 🏆</button>
-        </form>
+        <>
+          <form onSubmit={editingAwardId ? handleAwardUpdate : handleAwardSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            <h4 style={{ margin: 0 }}>{editingAwardId ? 'UPDATE AWARD' : 'ADD NEW AWARD'}</h4>
+            <input type="text" placeholder="Award Title" value={awardTitle} onChange={e => setAwardTitle(e.target.value)} required style={inputStyle} />
+            <input type="text" placeholder="Host/Issuer (optional)" value={awardHost} onChange={e => setAwardHost(e.target.value)} style={inputStyle} />
+            <input type="text" placeholder="Badge ID (from Credly)" value={awardBadgeId} onChange={e => setAwardBadgeId(e.target.value)} style={inputStyle} />
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <input type="checkbox" checked={awardIsCert} onChange={e => setAwardIsCert(e.target.checked)} />
+              <label>Is Certificate?</label>
+            </div>
+            <input type="url" placeholder="Link (e.g. https://www.credly.com/badges/...)" value={awardLink} onChange={e => setAwardLink(e.target.value)} style={inputStyle} />
+            <div style={{ display: 'flex', gap: '1rem' }}>
+              {editingAwardId ? (
+                <>
+                  <button type="submit" className="comic-btn">UPDATE! ✨</button>
+                  <button type="button" onClick={handleAwardCancel} className="comic-btn" style={{ background: 'var(--c-grey-dark)' }}>CANCEL</button>
+                </>
+              ) : (
+                <button type="submit" className="comic-btn">ADD AWARD! 🏆</button>
+              )}
+            </div>
+          </form>
+          {awardList.length > 0 && (
+            <div style={{ marginTop: '2rem' }}>
+              <h4 style={{ marginBottom: '1rem' }}>EXISTING AWARDS</h4>
+              <div style={{ display: 'grid', gap: '0.5rem' }}>
+                {awardList.map(award => (
+                  <div key={award.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.5rem', border: 'var(--border-thin)', background: editingAwardId === award.id ? 'var(--c-accent)' : 'var(--c-grey-light)' }}>
+                    <span style={{ fontWeight: 'bold' }}>{award.title}</span>
+                    <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+                      {award.link && <span style={{ fontSize: '0.8rem', color: 'var(--c-accent)' }}>🔗</span>}
+                      <button onClick={() => handleAwardEdit(award)} className="comic-btn" style={{ fontSize: '0.7rem', padding: '5px 10px' }}>EDIT</button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </>
       )}
 
       {/* TOOL */}
