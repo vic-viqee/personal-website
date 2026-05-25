@@ -162,6 +162,8 @@ def seed_awards():
                 seed_count += 1
             elif item.name == "a" and item.get("href"):
                 href = item.get("href")
+                if not href.startswith("http") and not href.startswith("/"):
+                    href = "/legacy-static/" + href
                 session.add(Award(title=title, is_certificate=True, link=href, host="Cisco Networking Academy"))
                 seed_count += 1
 
