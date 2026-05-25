@@ -324,6 +324,30 @@ def create_hobby(
     return db_hobby
 
 
+@app.post("/seed")
+def seed_database(
+    session: Session = Depends(get_session),
+    _: bool = Depends(verify_admin_secret),
+):
+    from seed import (
+        seed_projects, seed_assistant_context, seed_blog_posts,
+        seed_skills, seed_timeline, seed_education, seed_awards,
+        seed_new_projects, seed_tembo_blog_post, seed_tools, seed_hobbies,
+    )
+    seed_projects()
+    seed_assistant_context()
+    seed_blog_posts()
+    seed_skills()
+    seed_timeline()
+    seed_education()
+    seed_awards()
+    seed_new_projects()
+    seed_tembo_blog_post()
+    seed_tools()
+    seed_hobbies()
+    return {"message": "Database seeded successfully"}
+
+
 @app.get("/blog", response_model=List[BlogPost])
 def get_blog_posts(session: Session = Depends(get_session)):
     posts = session.exec(select(BlogPost).order_by(BlogPost.published_at.desc())).all()
