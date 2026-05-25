@@ -13,7 +13,19 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
       {!showBriefing ? (
         <>
           <div className="project-header" style={{ marginBottom: '1rem' }}>
-            <h3>{project.name}</h3>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
+              <h3>{project.name}</h3>
+              <div className="mission-difficulty" style={{ display: 'flex', gap: '2px' }}>
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <img
+                    key={star}
+                    src={star <= project.difficulty ? '/legacy-static/assets/icons/ui/star-filled.svg' : '/legacy-static/assets/icons/ui/star-empty.svg'}
+                    alt={star <= project.difficulty ? 'Filled Star' : 'Empty Star'}
+                    style={{ width: '16px', height: '16px' }}
+                  />
+                ))}
+              </div>
+            </div>
             <p style={{ fontSize: '0.8rem', color: 'var(--c-accent)', fontWeight: 'bold' }}>{project.category.toUpperCase()}</p>
           </div>
           

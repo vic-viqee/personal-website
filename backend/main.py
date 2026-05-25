@@ -15,18 +15,6 @@ from models import (
     Hobby,
 )
 
-app = FastAPI(title="VL Murimi Portfolio API")
-
-# CORS setup
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
-
 def verify_admin_secret(x_admin_secret: str = Header(...)):
     if x_admin_secret != ADMIN_SECRET:
         raise HTTPException(status_code=401, detail="Invalid admin secret")

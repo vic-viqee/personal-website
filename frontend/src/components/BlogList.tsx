@@ -11,6 +11,9 @@ const BlogList: React.FC = () => {
     fetchBlogPosts().then((data) => {
       setPosts(data);
       setLoading(false);
+    }).catch((err) => {
+      console.error("Failed to fetch blog posts:", err);
+      setLoading(false);
     });
   }, []);
 

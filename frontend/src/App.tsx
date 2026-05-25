@@ -14,7 +14,24 @@ import GadgetArsenal from './components/GadgetArsenal';
 import OffDutyPursuits from './components/OffDutyPursuits';
 import ContactSection from './components/ContactSection';
 
+const DIFFICULTY_LABELS: { label: string; min: number; max: number }[] = [
+  { label: 'ALL', min: 1, max: 5 },
+  { label: 'EASY', min: 1, max: 2 },
+  { label: 'MEDIUM', min: 3, max: 3 },
+  { label: 'HARD', min: 4, max: 4 },
+  { label: 'EXTREME', min: 5, max: 5 },
+];
+
 function Home({ projects, loading }: { projects: Project[], loading: boolean }) {
+  const [filter, setFilter] = useState(0);
+
+  const filtered = filter === 0
+    ? projects
+    : projects.filter((p) => {
+        const d = DIFFICULTY_LABELS[filter];
+        return p.difficulty >= d.min && p.difficulty <= d.max;
+      });
+
   return (
     <>
       {/* HERO SECTION */}
@@ -30,9 +47,28 @@ function Home({ projects, loading }: { projects: Project[], loading: boolean }) 
 
       {/* MISSIONS SECTION */}
       <section id="projects" style={{ marginTop: '4rem' }}>
-        <h2 style={{ marginBottom: '2rem', fontSize: '3rem' }}>
-          PREVIOUS <span style={{ color: 'var(--c-accent)' }}>MISSIONS</span>
-        </h2>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem', flexWrap: 'wrap', gap: '1rem' }}>
+          <h2 style={{ fontSize: '3rem' }}>
+            PREVIOUS <span style={{ color: 'var(--c-accent)' }}>MISSIONS</span>
+          </h2>
+          <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+            {DIFFICULTY_LABELS.map((d, i) => (
+              <button
+                key={d.label}
+                onClick={() => setFilter(i)}
+                className="comic-btn"
+                style={{
+                  fontSize: '0.75rem',
+                  padding: '5px 10px',
+                  background: filter === i ? 'var(--c-accent)' : 'var(--c-grey-light)',
+                  color: filter === i ? '#fff' : 'var(--c-black)',
+                }}
+              >
+                {d.label}
+              </button>
+            ))}
+          </div>
+        </div>
         
         {loading ? (
           <div className="comic-panel">LOADING MISSIONS... POW! ZAP! BAM!</div>
@@ -42,7 +78,7 @@ function Home({ projects, loading }: { projects: Project[], loading: boolean }) 
             gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))', 
             gap: '2.5rem' 
           }}>
-            {projects.length > 0 ? projects.map((project) => (
+            {filtered.length > 0 ? filtered.map((project) => (
               <ProjectCard key={project.id} project={project} />
             )) : <div className="comic-panel">NO MISSIONS FOUND IN HQ DATABASE.</div>}
           </div>
@@ -116,6 +152,13 @@ function App() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setShowScrollTop(window.scrollY > 300);
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   useEffect(() => {
     fetchProjects().then((data) => {
@@ -162,8 +205,27 @@ function App() {
         </Routes>
 
         <footer style={{ marginTop: '5rem', padding: '2rem', borderTop: 'var(--border-thick)', textAlign: 'center' }}>
-          <p>&copy; 2026 VICTOR LEWIS MURIMI - ISSUE #1 - ALL RIGHTS RESERVED.</p>
+          <p>&copy; 2026 VICTOR LEWIS MURIMI - ALL RIGHTS RESERVED.</p>
         </footer>
+
+        {showScrollTop && (
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            className="comic-btn"
+            style={{
+              position: 'fixed',
+              bottom: '2rem',
+              right: '2rem',
+              zIndex: 1000,
+              fontSize: '1.5rem',
+              padding: '10px 16px',
+              lineHeight: '1',
+            }}
+            aria-label="Scroll to top"
+          >
+            &uarr;
+          </button>
+        )}
       </div>
     </Router>
   );
