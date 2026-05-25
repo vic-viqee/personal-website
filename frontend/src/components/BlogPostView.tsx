@@ -28,6 +28,14 @@ const BlogPostView: React.FC = () => {
         &lt;- BACK TO INTEL
       </Link>
       
+      {post.image_url && (
+        <img
+          src={`/legacy-static/${post.image_url}`}
+          alt={post.title}
+          style={{ width: '100%', maxHeight: '300px', objectFit: 'cover', borderRadius: '4px', marginBottom: '1.5rem' }}
+          onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }}
+        />
+      )}
       <h1 style={{ fontSize: '3rem', marginBottom: '1rem', marginTop: '1rem' }}>{post.title}</h1>
       <p style={{ fontSize: '0.9rem', color: 'var(--c-accent)', fontWeight: 'bold', marginBottom: '2rem' }}>
         FILED ON: {new Date(post.published_at).toLocaleDateString()}
