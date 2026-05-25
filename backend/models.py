@@ -13,6 +13,7 @@ class Project(SQLModel, table=True):
     github_repo_link: Optional[str] = None
     image_url: Optional[str] = None
     mission_briefing: Optional[str] = None
+    sort_order: int = 0
     created_at: datetime = Field(default_factory=datetime.utcnow)
 
 class BlogPost(SQLModel, table=True):

@@ -15,6 +15,7 @@ export interface Project {
   github_repo_link?: string;
   image_url?: string;
   mission_briefing?: string;
+  sort_order?: number;
 }
 
 export interface BlogPost {
@@ -96,6 +97,8 @@ function adminApi(secret: string) {
       axios.put(`${base}/projects/${id}`, data, { headers }).then(r => r.data),
     deleteProject: (id: number) =>
       axios.delete(`${base}/projects/${id}`, { headers }).then(r => r.data),
+    reorderProjects: (orders: { id: number; sort_order: number }[]) =>
+      axios.post(`${base}/projects/reorder`, orders, { headers }).then(r => r.data),
 
     // ── Skills ──
     createSkill: (data: Partial<Skill>) =>

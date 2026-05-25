@@ -110,6 +110,7 @@ interface CrudConfig {
   remove: (id: number) => Promise<{ message: string }>;
   defaultForm: Record<string, unknown>;
   listDisplay: (item: EntityType) => { primary: string; secondary?: string; meta?: string };
+  reorder?: { onReorder: (orders: { id: number; sort_order: number }[]) => Promise<void> };
 }
 
 function FormField({ field, value, onChange }: {
@@ -177,6 +178,7 @@ function CrudPanel({ config, onStatus }: { config: CrudConfig; onStatus: (msg: s
   const [editingId, setEditingId] = useState<number | null>(null);
   const [confirmDelete, setConfirmDelete] = useState<number | null>(null);
   const [loading, setLoading] = useState(false);
+  const [savingOrder, setSavingOrder] = useState(false);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -219,6 +221,27 @@ function CrudPanel({ config, onStatus }: { config: CrudConfig; onStatus: (msg: s
     setEditingId(null);
   };
 
+  const moveItem = (index: number, direction: -1 | 1) => {
+    const next = index + direction;
+    if (next < 0 || next >= items.length) return;
+    const copy = [...items];
+    [copy[index], copy[next]] = [copy[next], copy[index]];
+    setItems(copy);
+  };
+
+  const saveOrder = async () => {
+    setSavingOrder(true);
+    try {
+      const orders = items.map((item, i) => ({ id: item.id, sort_order: (i + 1) * 10 }));
+      await config.reorder!.onReorder(orders);
+      onStatus('ORDER SAVED! ✨');
+    } catch {
+      onStatus('FAILED! 🚩');
+      load();
+    }
+    setSavingOrder(false);
+  };
+
   const btnStyle: React.CSSProperties = { padding: '6px 12px', fontSize: '0.75rem', cursor: 'pointer' };
 
   return (
@@ -248,9 +271,16 @@ function CrudPanel({ config, onStatus }: { config: CrudConfig; onStatus: (msg: s
       )}
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+        {config.reorder && items.length > 1 && (
+          <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '8px' }}>
+            <button onClick={saveOrder} className="comic-btn" disabled={savingOrder} style={{ ...btnStyle, background: 'var(--c-accent)', color: 'var(--c-black)', fontWeight: 'bold' }}>
+              {savingOrder ? 'SAVING...' : '💾 SAVE ORDER'}
+            </button>
+          </div>
+        )}
         {loading && <p style={{ textAlign: 'center', opacity: 0.5 }}>LOADING...</p>}
         {!loading && items.length === 0 && <p style={{ textAlign: 'center', opacity: 0.5 }}>NOTHING HERE YET, CAPTAIN.</p>}
-        {items.map(item => {
+        {items.map((item, index) => {
           const display = config.listDisplay(item);
           return (
             <div key={item.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px', border: 'var(--border-thin)', background: editingId === item.id ? 'var(--c-accent)' : 'var(--c-grey-light)' }}>
@@ -259,7 +289,13 @@ function CrudPanel({ config, onStatus }: { config: CrudConfig; onStatus: (msg: s
                 {display.secondary && <div style={{ fontSize: '0.75rem', opacity: 0.7 }}>{display.secondary}</div>}
                 {display.meta && <div style={{ fontSize: '0.7rem', opacity: 0.5 }}>{display.meta}</div>}
               </div>
-              <div style={{ display: 'flex', gap: '6px', flexShrink: 0 }}>
+              <div style={{ display: 'flex', gap: '4px', flexShrink: 0, alignItems: 'center' }}>
+                {config.reorder && (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', marginRight: '4px' }}>
+                    <button onClick={() => moveItem(index, -1)} disabled={index === 0} className="comic-btn" style={{ fontSize: '0.55rem', padding: '2px 6px', lineHeight: '1', opacity: index === 0 ? 0.3 : 1 }}>▲</button>
+                    <button onClick={() => moveItem(index, 1)} disabled={index === items.length - 1} className="comic-btn" style={{ fontSize: '0.55rem', padding: '2px 6px', lineHeight: '1', opacity: index === items.length - 1 ? 0.3 : 1 }}>▼</button>
+                  </div>
+                )}
                 <button onClick={() => handleEdit(item)} className="comic-btn" style={{ fontSize: '0.7rem', padding: '4px 10px' }}>EDIT</button>
                 <button onClick={() => setConfirmDelete(item.id)} className="comic-btn" style={{ fontSize: '0.7rem', padding: '4px 10px', background: '#882222', color: 'white' }}>DEL</button>
               </div>
@@ -467,6 +503,7 @@ const Admin: React.FC = () => {
         secondary: `Difficulty: ${'⭐'.repeat((item as Project).difficulty)} | ${(item as Project).category}`,
         meta: `Tech: ${(item as Project).tech_stack.join(', ')}`,
       }),
+      reorder: { onReorder: api.reorderProjects },
     },
     blog: {
       fields: BLOG_FIELDS,

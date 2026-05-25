@@ -47,7 +47,7 @@ def read_root():
 
 @app.get("/projects", response_model=List[Project])
 def get_projects(session: Session = Depends(get_session)):
-    projects = session.exec(select(Project)).all()
+    projects = session.exec(select(Project).order_by(Project.sort_order, Project.id)).all()
     return projects
 
 
@@ -367,6 +367,20 @@ def update_project(project_id: int, project_in: ProjectCreate, session: Session 
 @app.delete("/projects/{project_id}")
 def delete_project(project_id: int, session: Session = Depends(get_session), _: bool = Depends(verify_admin_secret)):
     return _delete_entity(session, Project, project_id)
+
+
+class ReorderItem(BaseModel):
+    id: int
+    sort_order: int
+
+@app.post("/projects/reorder")
+def reorder_projects(orders: List[ReorderItem], session: Session = Depends(get_session), _: bool = Depends(verify_admin_secret)):
+    for item in orders:
+        project = session.get(Project, item.id)
+        if project:
+            project.sort_order = item.sort_order
+    session.commit()
+    return {"message": "Reorder successful"}
 
 
 # ── SKILLS ────────────────────────────────────────────
