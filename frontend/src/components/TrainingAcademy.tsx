@@ -11,7 +11,7 @@ const TrainingAcademy: React.FC = () => {
 
   return (
     <div className="comic-panel">
-      <h2 style={{ fontSize: '2.5rem', marginBottom: '2rem' }}>
+      <h2 style={{ fontSize: 'clamp(1.5rem, 5vw, 2.5rem)', marginBottom: '2rem' }}>
         TRAINING ACADEMY <span style={{ color: 'var(--c-accent)' }}>(EDUCATION)</span>
       </h2>
       <ul style={{ listStyle: 'none', display: 'grid', gap: '1.5rem' }}>

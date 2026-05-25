@@ -3,7 +3,7 @@ import React from 'react';
 const ContactSection: React.FC = () => {
   return (
     <div className="comic-panel" style={{ textAlign: 'center' }}>
-      <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>SEND A <span style={{ color: 'var(--c-accent)' }}>SIGNAL</span></h2>
+      <h2 style={{ fontSize: 'clamp(1.5rem, 5vw, 2.5rem)', marginBottom: '1rem' }}>SEND A <span style={{ color: 'var(--c-accent)' }}>SIGNAL</span></h2>
       <p style={{ marginBottom: '2rem' }}>Need a hero for your next project? Use the secure channels below.</p>
       
       <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', flexWrap: 'wrap', marginBottom: '3rem' }}>

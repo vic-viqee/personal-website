@@ -21,7 +21,7 @@ const BlogList: React.FC = () => {
 
   return (
     <section>
-      <h2 style={{ marginBottom: '2rem', fontSize: '2.5rem' }}>
+      <h2 style={{ marginBottom: '2rem', fontSize: 'clamp(1.5rem, 5vw, 2.5rem)' }}>
         MISSION <span style={{ color: 'var(--c-accent)' }}>REPORTS</span> (BLOG)
       </h2>
       <div style={{ display: 'grid', gap: '2rem' }}>

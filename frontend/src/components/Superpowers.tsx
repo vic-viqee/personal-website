@@ -38,9 +38,9 @@ const Superpowers: React.FC = () => {
   return (
     <div className="comic-panel" style={{ padding: '2rem' }}>
       <h2 style={{ 
-        fontSize: '2.5rem', 
+        fontSize: 'clamp(1.5rem, 5vw, 2.5rem)', 
         marginBottom: '0.5rem',
-        textShadow: '3px 3px 0 var(--c-accent)',
+        textShadow: 'clamp(2px, 0.5vw, 3px) clamp(2px, 0.5vw, 3px) 0 var(--c-accent)',
         fontFamily: 'var(--font-heading)'
       }}>
         SUPERPOWERS <span style={{ color: 'var(--c-accent)' }}>//SKILLS</span>

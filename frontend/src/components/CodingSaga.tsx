@@ -11,25 +11,25 @@ const CodingSaga: React.FC = () => {
 
   return (
     <div className="comic-panel">
-      <h2 style={{ fontSize: '2.5rem', marginBottom: '2rem' }}>
+      <h2 style={{ fontSize: 'clamp(1.5rem, 5vw, 2.5rem)', marginBottom: '2rem' }}>
         MY CODING SAGA <span style={{ color: 'var(--c-accent)' }}>(TIMELINE)</span>
       </h2>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
         {events.map((event) => (
-          <div key={event.id} style={{ 
+          <div key={event.id} className="timeline-row" style={{ 
             display: 'flex', 
             flexDirection: event.side === 'left' ? 'row' : 'row-reverse',
             alignItems: 'center',
             gap: '1rem'
           }}>
-            <div style={{ 
+            <div className="timeline-year" style={{ 
               background: 'var(--c-black)', 
               color: 'var(--c-white)', 
               padding: '10px', 
               fontFamily: 'var(--font-heading)',
-              fontSize: '1.5rem',
-              minWidth: '80px',
-              textAlign: 'center',
+              fontSize: 'clamp(1rem, 4vw, 1.5rem)',
+              minWidth: 'clamp(60px, 15vw, 80px)',
+              textAlign: 'center' as const,
               border: 'var(--border-thin)'
             }}>
               {event.year}

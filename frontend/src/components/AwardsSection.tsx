@@ -2,6 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { fetchAwards } from '../api.ts';
 import type { Award } from '../api.ts';
 
+const awardIcon = (title: string): string => {
+  const t = title.toLowerCase();
+  if (t.includes('ccna') || t.includes('cisco') || t.includes('packet tracer')) return '🌐';
+  if (t.includes('cyber') || t.includes('security')) return '🛡️';
+  if (t.includes('python')) return '🐍';
+  if (t.includes('network')) return '🔗';
+  return '🏆';
+};
+
 const AwardsSection: React.FC = () => {
   const [awards, setAwards] = useState<Award[]>([]);
 
@@ -11,7 +20,7 @@ const AwardsSection: React.FC = () => {
 
   return (
     <div className="comic-panel">
-      <h2 style={{ fontSize: '2.5rem', marginBottom: '2rem', textAlign: 'center' }}>
+      <h2 style={{ fontSize: 'clamp(1.5rem, 5vw, 2.5rem)', marginBottom: '2rem', textAlign: 'center' }}>
         ACHIEVEMENT <span style={{ color: 'var(--c-accent)' }}>UNLOCKED</span>
       </h2>
       
@@ -29,9 +38,7 @@ const AwardsSection: React.FC = () => {
               </a>
             ) : (
               <div style={{ fontSize: '3rem', lineHeight: '1' }}>
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'block', margin: '0 auto' }}>
-                  <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
-                </svg>
+                {awardIcon(award.title)}
               </div>
             )}
             <h4 style={{ marginTop: '1rem', fontFamily: 'var(--font-heading)' }}>{award.title}</h4>

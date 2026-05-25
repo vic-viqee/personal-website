@@ -12,7 +12,7 @@ const GadgetArsenal: React.FC = () => {
 
   return (
     <div className="comic-panel">
-      <h2 style={{ fontSize: '2.5rem', marginBottom: '2rem' }}>
+      <h2 style={{ fontSize: 'clamp(1.5rem, 5vw, 2.5rem)', marginBottom: '2rem' }}>
         GADGETS & <span style={{ color: 'var(--c-accent)' }}>ARSENAL</span>
       </h2>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem' }}>

@@ -36,7 +36,7 @@ const BlogPostView: React.FC = () => {
           onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }}
         />
       )}
-      <h1 style={{ fontSize: '3rem', marginBottom: '1rem', marginTop: '1rem' }}>{post.title}</h1>
+      <h1 style={{ fontSize: 'clamp(1.8rem, 6vw, 3rem)', marginBottom: '1rem', marginTop: '1rem' }}>{post.title}</h1>
       <p style={{ fontSize: '0.9rem', color: 'var(--c-accent)', fontWeight: 'bold', marginBottom: '2rem' }}>
         FILED ON: {new Date(post.published_at).toLocaleDateString()}
       </p>

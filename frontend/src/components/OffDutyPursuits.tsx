@@ -12,7 +12,7 @@ const OffDutyPursuits: React.FC = () => {
 
   return (
     <div className="comic-panel">
-      <h2 style={{ fontSize: '2.5rem', marginBottom: '2rem' }}>
+      <h2 style={{ fontSize: 'clamp(1.5rem, 5vw, 2.5rem)', marginBottom: '2rem' }}>
         OFF-DUTY <span style={{ color: 'var(--c-accent)' }}>PURSUITS</span>
       </h2>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1rem' }}>

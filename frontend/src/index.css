@@ -122,3 +122,17 @@ a {
 a:hover {
   color: var(--c-accent-hover);
 }
+
+/* ── Responsive ──────────────────────────── */
+@media (max-width: 768px) {
+  body { background-size: 15px 15px; }
+  .comic-panel { padding: 1.25rem; }
+  .comic-btn { font-size: 0.85rem; padding: 8px 14px; }
+  .timeline-row { flex-direction: column !important; }
+  .timeline-year { min-width: 100% !important; }
+}
+
+@media (max-width: 480px) {
+  .comic-panel { padding: 1rem; }
+  .comic-btn { font-size: 0.75rem; padding: 6px 10px; }
+}

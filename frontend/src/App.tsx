@@ -42,18 +42,18 @@ function Home({ projects, loading, settings, sections }: {
   return (
     <>
       {visible('hero') && (
-        <section className="comic-panel" style={{ textAlign: 'center', padding: '4rem 2rem' }}>
-          <h1 className="comic-title" style={{ fontSize: '4.5rem', marginBottom: '1rem', textShadow: '6px 6px 0px var(--c-accent)' }}>
+        <section className="comic-panel" style={{ textAlign: 'center', padding: 'clamp(2rem, 6vw, 4rem) 1.5rem' }}>
+          <h1 className="comic-title" style={{ fontSize: 'clamp(2rem, 8vw, 4.5rem)', marginBottom: '0.5rem', textShadow: 'clamp(3px, 1vw, 6px) clamp(3px, 1vw, 6px) 0px var(--c-accent)' }}>
             {settings.hero_greeting || 'THE HERO WE NEED'}
           </h1>
-          <h2 className="comic-subtitle" style={{ fontSize: '2.5rem', color: 'var(--c-accent)', marginBottom: '2rem' }}>
+          <h2 className="comic-subtitle" style={{ fontSize: 'clamp(1.3rem, 5vw, 2.5rem)', color: 'var(--c-accent)', marginBottom: '1.5rem' }}>
             {settings.hero_tagline || 'VICTOR LEWIS MURIMI'}
           </h2>
-          <p className="comic-text" style={{ fontSize: '1.2rem', maxWidth: '800px', margin: '0 auto 2rem' }}>
+          <p className="comic-text" style={{ fontSize: 'clamp(0.9rem, 2.5vw, 1.2rem)', maxWidth: '800px', margin: '0 auto 2rem' }}>
             Developer by day. Vigilante coder by night. Welcome to my digital headquarters. Explore my
             past missions and current capabilities.
           </p>
-          <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', flexWrap: 'wrap' }}>
             <a href="https://www.linkedin.com/in/victor-lewis-murimi-1357753b4/" target="_blank" rel="noopener noreferrer" className="comic-btn" style={{ background: 'var(--c-success, #28a745)', color: '#fff', fontWeight: 'bold', letterSpacing: '1px' }}>
               &check; AVAILABLE FOR HIRE
             </a>
@@ -64,9 +64,9 @@ function Home({ projects, loading, settings, sections }: {
       )}
 
       {visible('projects') && (
-        <section id="projects" style={{ marginTop: '4rem' }}>
+        <section id="projects" style={{ marginTop: 'clamp(2rem, 6vw, 4rem)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem', flexWrap: 'wrap', gap: '1rem' }}>
-            <h2 style={{ fontSize: '3rem' }}>
+            <h2 style={{ fontSize: 'clamp(1.8rem, 6vw, 3rem)' }}>
               PREVIOUS <span style={{ color: 'var(--c-accent)' }}>MISSIONS</span>
             </h2>
             <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
@@ -105,46 +105,46 @@ function Home({ projects, loading, settings, sections }: {
       )}
 
       {visible('timeline') && (
-        <section style={{ marginTop: '4rem' }}>
+        <section style={{ marginTop: 'clamp(2rem, 6vw, 4rem)' }}>
           <CodingSaga />
         </section>
       )}
 
       {(visible('skills') || visible('education')) && (
-        <section style={{ marginTop: '4rem', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '2rem' }}>
+        <section style={{ marginTop: 'clamp(2rem, 6vw, 4rem)', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
           {visible('skills') && <Superpowers />}
           {visible('education') && <TrainingAcademy />}
         </section>
       )}
 
       {visible('awards') && (
-        <section style={{ marginTop: '4rem' }}>
+        <section style={{ marginTop: 'clamp(2rem, 6vw, 4rem)' }}>
           <AwardsSection />
         </section>
       )}
 
       {visible('tools') && (
-        <section style={{ marginTop: '4rem' }}>
+        <section style={{ marginTop: 'clamp(2rem, 6vw, 4rem)' }}>
           <GadgetArsenal />
         </section>
       )}
 
       {visible('hobbies') && (
-        <section style={{ marginTop: '4rem' }}>
+        <section style={{ marginTop: 'clamp(2rem, 6vw, 4rem)' }}>
           <OffDutyPursuits />
         </section>
       )}
 
       {visible('origin_story') && (
-        <section style={{ marginTop: '4rem' }} className="comic-panel">
-          <h2 style={{ fontSize: '2.5rem', marginBottom: '2rem' }}>THE ORIGIN STORY</h2>
+        <section style={{ marginTop: 'clamp(2rem, 6vw, 4rem)' }} className="comic-panel">
+          <h2 style={{ fontSize: 'clamp(1.5rem, 5vw, 2.5rem)', marginBottom: '2rem' }}>THE ORIGIN STORY</h2>
           <div style={{ display: 'flex', gap: '2rem', alignItems: 'center', flexWrap: 'wrap' }}>
-            <div style={{ flex: '1', minWidth: '300px' }}>
-              <p style={{ fontSize: '1.1rem', lineHeight: '1.8' }}>
+            <div style={{ flex: '1', minWidth: '280px' }}>
+              <p style={{ fontSize: 'clamp(0.9rem, 2vw, 1.1rem)', lineHeight: '1.8' }}>
                 {settings.origin_story || "My name is Victor Lewis Murimi. I'm a passionate developer based in Kenya. Every great hero has an origin story; mine began with a curiosity for how things work on the web. I'm a proud graduate of the Tembo Tech Ventures Cohort 04 — 7 months of building real full-stack applications and shipping production software. Today, I use my powers to build robust, user-friendly digital experiences. When I'm not coding, I'm playing chess, watching football or plotting my next big project."}
               </p>
             </div>
-            <div className="comic-panel" style={{ background: 'var(--c-grey-light)', maxWidth: '400px' }}>
+            <div className="comic-panel" style={{ background: 'var(--c-grey-light)', maxWidth: '400px', width: '100%' }}>
               <p style={{ fontWeight: 'bold' }}>DID YOU KNOW?</p>
               <p>I once debugged for 48 hours straight fueled by coffee and sheer willpower!</p>
             </div>
@@ -153,7 +153,7 @@ function Home({ projects, loading, settings, sections }: {
       )}
 
       {visible('contact') && (
-        <section id="contact" style={{ marginTop: '4rem' }}>
+        <section id="contact" style={{ marginTop: 'clamp(2rem, 6vw, 4rem)' }}>
           <ContactSection />
         </section>
       )}
@@ -195,18 +195,18 @@ function App() {
 
   return (
     <Router>
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem' }}>
-        <header style={{ marginBottom: '3rem', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '2rem' }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: 'clamp(1rem, 4vw, 2rem)' }}>
+        <header style={{ marginBottom: 'clamp(1.5rem, 5vw, 3rem)', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '2rem' }}>
           <div>
-            <h1 style={{ fontSize: '3rem', textShadow: '4px 4px 0px var(--c-accent)' }}>VL MURIMI</h1>
+            <h1 style={{ fontSize: 'clamp(2rem, 6vw, 3rem)', textShadow: 'clamp(2px, 0.7vw, 4px) clamp(2px, 0.7vw, 4px) 0px var(--c-accent)' }}>VL MURIMI</h1>
           </div>
           
-          <nav style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
-            <Link to="/" className="comic-btn" style={{ fontSize: '1rem', padding: '10px' }}>HQ</Link>
-            <Link to="/skills" className="comic-btn" style={{ fontSize: '1rem', padding: '10px' }}>POWERS</Link>
-            <Link to="/timeline" className="comic-btn" style={{ fontSize: '1rem', padding: '10px' }}>SAGA</Link>
-            <Link to="/blog" className="comic-btn" style={{ fontSize: '1rem', padding: '10px' }}>INTEL</Link>
-            <button onClick={toggleTheme} className="comic-btn" style={{ fontSize: '1rem', padding: '10px' }}>
+          <nav style={{ display: 'flex', gap: '10px', alignItems: 'center', flexWrap: 'wrap' }}>
+            <Link to="/" className="comic-btn" style={{ fontSize: 'clamp(0.8rem, 2.5vw, 1rem)', padding: 'clamp(6px, 1.5vw, 10px)' }}>HQ</Link>
+            <Link to="/skills" className="comic-btn" style={{ fontSize: 'clamp(0.8rem, 2.5vw, 1rem)', padding: 'clamp(6px, 1.5vw, 10px)' }}>POWERS</Link>
+            <Link to="/timeline" className="comic-btn" style={{ fontSize: 'clamp(0.8rem, 2.5vw, 1rem)', padding: 'clamp(6px, 1.5vw, 10px)' }}>SAGA</Link>
+            <Link to="/blog" className="comic-btn" style={{ fontSize: 'clamp(0.8rem, 2.5vw, 1rem)', padding: 'clamp(6px, 1.5vw, 10px)' }}>INTEL</Link>
+            <button onClick={toggleTheme} className="comic-btn" style={{ fontSize: 'clamp(0.8rem, 2.5vw, 1rem)', padding: 'clamp(6px, 1.5vw, 10px)' }}>
               {theme === 'light' ? 'DARK' : 'LIGHT'}
             </button>
           </nav>
