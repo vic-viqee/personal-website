@@ -16,7 +16,7 @@ const ContactSection: React.FC = () => {
         <a href="https://t.me/vlm_hq_bot" target="_blank" rel="noreferrer" className="comic-btn" style={{ fontSize: '0.8rem', background: 'var(--c-accent)', color: 'var(--c-black)' }}>TELEGRAM ASSISTANT</a>
         <a href="https://github.com/vic-viqee" target="_blank" rel="noreferrer" className="comic-btn" style={{ fontSize: '0.8rem', background: 'var(--c-black)', color: 'var(--c-white)' }}>GITHUB</a>
         <a href="https://x.com/VictorlewisMur3" target="_blank" rel="noreferrer" className="comic-btn" style={{ fontSize: '0.8rem', background: 'var(--c-black)', color: 'var(--c-white)' }}>X (TWITTER)</a>
-        <a href="https://linkedin.com/in/victor-lewis-murimi" target="_blank" rel="noreferrer" className="comic-btn" style={{ fontSize: '0.8rem', background: 'var(--c-black)', color: 'var(--c-white)' }}>LINKEDIN</a>
+        <a href="https://www.linkedin.com/in/victor-lewis-murimi-1357753b4/" target="_blank" rel="noreferrer" className="comic-btn" style={{ fontSize: '0.8rem', background: 'var(--c-black)', color: 'var(--c-white)' }}>LINKEDIN</a>
         <a href="https://wa.me/254114086112" target="_blank" rel="noreferrer" className="comic-btn" style={{ fontSize: '0.8rem', background: 'var(--c-black)', color: 'var(--c-white)' }}>WHATSAPP</a>
       </div>
     </div>

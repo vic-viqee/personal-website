@@ -7,7 +7,7 @@ const Superpowers: React.FC = () => {
   const [visibleSkills, setVisibleSkills] = useState<Set<number>>(new Set());
 
   useEffect(() => {
-    fetchSkills().then(setSkills).catch(err => console.error("Skills fetch failed:", err));
+    fetchSkills().then(data => setSkills([...data].sort((a, b) => b.level - a.level))).catch(err => console.error("Skills fetch failed:", err));
   }, []);
 
   useEffect(() => {

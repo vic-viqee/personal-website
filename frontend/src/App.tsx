@@ -54,7 +54,7 @@ function Home({ projects, loading, settings, sections }: {
             past missions and current capabilities.
           </p>
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <a href="https://www.linkedin.com/in/victorlewismurimi/" target="_blank" rel="noopener noreferrer" className="comic-btn" style={{ background: 'var(--c-success, #28a745)', color: '#fff', fontWeight: 'bold', letterSpacing: '1px' }}>
+            <a href="https://www.linkedin.com/in/victor-lewis-murimi-1357753b4/" target="_blank" rel="noopener noreferrer" className="comic-btn" style={{ background: 'var(--c-success, #28a745)', color: '#fff', fontWeight: 'bold', letterSpacing: '1px' }}>
               &check; AVAILABLE FOR HIRE
             </a>
             <a href="#contact" className="comic-btn">GET IN TOUCH!</a>
