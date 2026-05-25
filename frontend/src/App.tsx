@@ -42,7 +42,13 @@ function Home({ projects, loading }: { projects: Project[], loading: boolean }) 
           Developer by day. Vigilante coder by night. Welcome to my digital headquarters. Explore my
           past missions and current capabilities.
         </p>
-        <a href="#projects" className="comic-btn">VIEW MISSIONS!</a>
+        <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+          <a href="https://www.linkedin.com/in/victorlewismurimi/" target="_blank" rel="noopener noreferrer" className="comic-btn" style={{ background: 'var(--c-success, #28a745)', color: '#fff', fontWeight: 'bold', letterSpacing: '1px' }}>
+            &check; AVAILABLE FOR HIRE
+          </a>
+          <a href="#contact" className="comic-btn">GET IN TOUCH!</a>
+          <a href="#projects" className="comic-btn">VIEW MISSIONS!</a>
+        </div>
       </section>
 
       {/* MISSIONS SECTION */}
@@ -128,9 +134,10 @@ function Home({ projects, loading }: { projects: Project[], loading: boolean }) 
           <div style={{ flex: '1', minWidth: '300px' }}>
             <p style={{ fontSize: '1.1rem', lineHeight: '1.8' }}>
               My name is Victor Lewis Murimi. I'm a passionate developer based in Kenya. Every great hero has an origin
-              story; mine began with a curiosity for how things work on the web. Today, I use my powers to build robust,
-              user-friendly digital experiences. When I'm not coding, I'm playing chess, watching football or plotting
-              my next big project.
+              story; mine began with a curiosity for how things work on the web. I'm a proud graduate of the
+              Tembo Tech Ventures Cohort 04 — 7 months of building real full-stack applications and shipping
+              production software. Today, I use my powers to build robust, user-friendly digital experiences.
+              When I'm not coding, I'm playing chess, watching football or plotting my next big project.
             </p>
           </div>
           <div className="comic-panel" style={{ background: 'var(--c-grey-light)', maxWidth: '400px' }}>
@@ -141,7 +148,7 @@ function Home({ projects, loading }: { projects: Project[], loading: boolean }) 
       </section>
 
       {/* CONTACT SECTION */}
-      <section style={{ marginTop: '4rem' }}>
+      <section id="contact" style={{ marginTop: '4rem' }}>
         <ContactSection />
       </section>
     </>
