@@ -66,3 +66,13 @@ class Hobby(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     name: str
     side: str = "left"
+
+class SiteSetting(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    key: str = Field(unique=True, index=True)
+    value: str
+
+class SectionVisibility(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    section: str = Field(unique=True, index=True)
+    visible: bool = True

@@ -13,6 +13,8 @@ from models import (
     Award,
     Tool,
     Hobby,
+    SiteSetting,
+    SectionVisibility,
 )
 
 def verify_admin_secret(x_admin_secret: str = Header(...)):
@@ -271,26 +273,6 @@ def create_award(
     return db_award
 
 
-@app.put("/awards/{award_id}", response_model=Award)
-def update_award(
-    award_id: int,
-    award_in: AwardCreate,
-    session: Session = Depends(get_session),
-    _: bool = Depends(verify_admin_secret),
-):
-    db_award = session.get(Award, award_id)
-    if not db_award:
-        raise HTTPException(status_code=404, detail="Award not found")
-    db_award.title = award_in.title
-    db_award.host = award_in.host
-    db_award.badge_id = award_in.badge_id
-    db_award.is_certificate = award_in.is_certificate
-    db_award.link = award_in.link
-    session.commit()
-    session.refresh(db_award)
-    return db_award
-
-
 @app.post("/tools", response_model=Tool)
 def create_tool(
     tool_in: ToolCreate,
@@ -324,6 +306,237 @@ def create_hobby(
     return db_hobby
 
 
+def _update_entity(session, model, entity_id, data):
+    db_entity = session.get(model, entity_id)
+    if not db_entity:
+        raise HTTPException(status_code=404, detail=f"{model.__name__} not found")
+    for field, value in data.model_dump(exclude_unset=True).items():
+        setattr(db_entity, field, value)
+    session.commit()
+    session.refresh(db_entity)
+    return db_entity
+
+
+def _delete_entity(session, model, entity_id):
+    db_entity = session.get(model, entity_id)
+    if not db_entity:
+        raise HTTPException(status_code=404, detail=f"{model.__name__} not found")
+    session.delete(db_entity)
+    session.commit()
+    return {"message": f"{model.__name__} deleted"}
+
+
+# ── BLOG ──────────────────────────────────────────────
+@app.get("/blog", response_model=List[BlogPost])
+def get_blog_posts(session: Session = Depends(get_session)):
+    return session.exec(select(BlogPost).order_by(BlogPost.published_at.desc())).all()
+
+
+@app.get("/blog/{slug}", response_model=BlogPost)
+def get_blog_post(slug: str, session: Session = Depends(get_session)):
+    post = session.exec(select(BlogPost).where(BlogPost.slug == slug)).first()
+    if not post:
+        raise HTTPException(status_code=404, detail="Post not found")
+    return post
+
+
+@app.put("/blog/{post_id}", response_model=BlogPost)
+def update_blog_post(post_id: int, post_in: BlogPostCreate, session: Session = Depends(get_session), _: bool = Depends(verify_admin_secret)):
+    return _update_entity(session, BlogPost, post_id, post_in)
+
+
+@app.delete("/blog/{post_id}")
+def delete_blog_post(post_id: int, session: Session = Depends(get_session), _: bool = Depends(verify_admin_secret)):
+    return _delete_entity(session, BlogPost, post_id)
+
+
+# ── PROJECTS ──────────────────────────────────────────
+@app.get("/projects/{project_id}", response_model=Project)
+def get_project(project_id: int, session: Session = Depends(get_session)):
+    project = session.get(Project, project_id)
+    if not project:
+        raise HTTPException(status_code=404, detail="Project not found")
+    return project
+
+
+@app.put("/projects/{project_id}", response_model=Project)
+def update_project(project_id: int, project_in: ProjectCreate, session: Session = Depends(get_session), _: bool = Depends(verify_admin_secret)):
+    return _update_entity(session, Project, project_id, project_in)
+
+
+@app.delete("/projects/{project_id}")
+def delete_project(project_id: int, session: Session = Depends(get_session), _: bool = Depends(verify_admin_secret)):
+    return _delete_entity(session, Project, project_id)
+
+
+# ── SKILLS ────────────────────────────────────────────
+@app.get("/skills/{skill_id}", response_model=Skill)
+def get_skill(skill_id: int, session: Session = Depends(get_session)):
+    skill = session.get(Skill, skill_id)
+    if not skill:
+        raise HTTPException(status_code=404, detail="Skill not found")
+    return skill
+
+
+@app.put("/skills/{skill_id}", response_model=Skill)
+def update_skill(skill_id: int, skill_in: SkillCreate, session: Session = Depends(get_session), _: bool = Depends(verify_admin_secret)):
+    return _update_entity(session, Skill, skill_id, skill_in)
+
+
+@app.delete("/skills/{skill_id}")
+def delete_skill(skill_id: int, session: Session = Depends(get_session), _: bool = Depends(verify_admin_secret)):
+    return _delete_entity(session, Skill, skill_id)
+
+
+# ── TIMELINE ──────────────────────────────────────────
+@app.get("/timeline/{event_id}", response_model=TimelineEvent)
+def get_timeline_event(event_id: int, session: Session = Depends(get_session)):
+    event = session.get(TimelineEvent, event_id)
+    if not event:
+        raise HTTPException(status_code=404, detail="TimelineEvent not found")
+    return event
+
+
+@app.put("/timeline/{event_id}", response_model=TimelineEvent)
+def update_timeline_event(event_id: int, event_in: TimelineEventCreate, session: Session = Depends(get_session), _: bool = Depends(verify_admin_secret)):
+    return _update_entity(session, TimelineEvent, event_id, event_in)
+
+
+@app.delete("/timeline/{event_id}")
+def delete_timeline_event(event_id: int, session: Session = Depends(get_session), _: bool = Depends(verify_admin_secret)):
+    return _delete_entity(session, TimelineEvent, event_id)
+
+
+# ── EDUCATION ─────────────────────────────────────────
+@app.get("/education/{edu_id}", response_model=EducationEntry)
+def get_education_entry(edu_id: int, session: Session = Depends(get_session)):
+    entry = session.get(EducationEntry, edu_id)
+    if not entry:
+        raise HTTPException(status_code=404, detail="EducationEntry not found")
+    return entry
+
+
+@app.put("/education/{edu_id}", response_model=EducationEntry)
+def update_education(edu_id: int, edu_in: EducationEntryCreate, session: Session = Depends(get_session), _: bool = Depends(verify_admin_secret)):
+    return _update_entity(session, EducationEntry, edu_id, edu_in)
+
+
+@app.delete("/education/{edu_id}")
+def delete_education(edu_id: int, session: Session = Depends(get_session), _: bool = Depends(verify_admin_secret)):
+    return _delete_entity(session, EducationEntry, edu_id)
+
+
+# ── AWARDS ────────────────────────────────────────────
+@app.get("/awards/{award_id}", response_model=Award)
+def get_award(award_id: int, session: Session = Depends(get_session)):
+    award = session.get(Award, award_id)
+    if not award:
+        raise HTTPException(status_code=404, detail="Award not found")
+    return award
+
+
+@app.put("/awards/{award_id}", response_model=Award)
+def update_award(award_id: int, award_in: AwardCreate, session: Session = Depends(get_session), _: bool = Depends(verify_admin_secret)):
+    return _update_entity(session, Award, award_id, award_in)
+
+
+@app.delete("/awards/{award_id}")
+def delete_award(award_id: int, session: Session = Depends(get_session), _: bool = Depends(verify_admin_secret)):
+    return _delete_entity(session, Award, award_id)
+
+
+# ── TOOLS ─────────────────────────────────────────────
+@app.get("/tools/{tool_id}", response_model=Tool)
+def get_tool(tool_id: int, session: Session = Depends(get_session)):
+    tool = session.get(Tool, tool_id)
+    if not tool:
+        raise HTTPException(status_code=404, detail="Tool not found")
+    return tool
+
+
+@app.put("/tools/{tool_id}", response_model=Tool)
+def update_tool(tool_id: int, tool_in: ToolCreate, session: Session = Depends(get_session), _: bool = Depends(verify_admin_secret)):
+    return _update_entity(session, Tool, tool_id, tool_in)
+
+
+@app.delete("/tools/{tool_id}")
+def delete_tool(tool_id: int, session: Session = Depends(get_session), _: bool = Depends(verify_admin_secret)):
+    return _delete_entity(session, Tool, tool_id)
+
+
+# ── HOBBIES ───────────────────────────────────────────
+@app.get("/hobbies/{hobby_id}", response_model=Hobby)
+def get_hobby(hobby_id: int, session: Session = Depends(get_session)):
+    hobby = session.get(Hobby, hobby_id)
+    if not hobby:
+        raise HTTPException(status_code=404, detail="Hobby not found")
+    return hobby
+
+
+@app.put("/hobbies/{hobby_id}", response_model=Hobby)
+def update_hobby(hobby_id: int, hobby_in: HobbyCreate, session: Session = Depends(get_session), _: bool = Depends(verify_admin_secret)):
+    return _update_entity(session, Hobby, hobby_id, hobby_in)
+
+
+@app.delete("/hobbies/{hobby_id}")
+def delete_hobby(hobby_id: int, session: Session = Depends(get_session), _: bool = Depends(verify_admin_secret)):
+    return _delete_entity(session, Hobby, hobby_id)
+
+
+# ── SITE SETTINGS ─────────────────────────────────────
+class SiteSettingUpdate(BaseModel):
+    value: str
+
+
+@app.get("/settings", response_model=dict)
+def get_all_settings(session: Session = Depends(get_session)):
+    settings = session.exec(select(SiteSetting)).all()
+    return {s.key: s.value for s in settings}
+
+
+@app.get("/settings/{key}", response_model=str)
+def get_setting(key: str, session: Session = Depends(get_session)):
+    setting = session.exec(select(SiteSetting).where(SiteSetting.key == key)).first()
+    if not setting:
+        raise HTTPException(status_code=404, detail="Setting not found")
+    return setting.value
+
+
+@app.put("/settings/{key}")
+def update_setting(key: str, data: SiteSettingUpdate, session: Session = Depends(get_session), _: bool = Depends(verify_admin_secret)):
+    setting = session.exec(select(SiteSetting).where(SiteSetting.key == key)).first()
+    if setting:
+        setting.value = data.value
+    else:
+        setting = SiteSetting(key=key, value=data.value)
+        session.add(setting)
+    session.commit()
+    return {"key": key, "value": data.value}
+
+
+# ── SECTION VISIBILITY ────────────────────────────────
+class SectionVisibilityUpdate(BaseModel):
+    visible: bool
+
+
+@app.get("/sections", response_model=dict)
+def get_all_sections(session: Session = Depends(get_session)):
+    sections = session.exec(select(SectionVisibility)).all()
+    return {s.section: s.visible for s in sections}
+
+
+@app.put("/sections/{section}")
+def update_section(section: str, data: SectionVisibilityUpdate, session: Session = Depends(get_session), _: bool = Depends(verify_admin_secret)):
+    vis = session.exec(select(SectionVisibility).where(SectionVisibility.section == section)).first()
+    if vis:
+        vis.visible = data.visible
+    else:
+        vis = SectionVisibility(section=section, visible=data.visible)
+        session.add(vis)
+    session.commit()
+    return {"section": section, "visible": data.visible}
+
+
 @app.post("/seed")
 def seed_database(
     session: Session = Depends(get_session),
@@ -346,17 +559,3 @@ def seed_database(
     seed_tools()
     seed_hobbies()
     return {"message": "Database seeded successfully"}
-
-
-@app.get("/blog", response_model=List[BlogPost])
-def get_blog_posts(session: Session = Depends(get_session)):
-    posts = session.exec(select(BlogPost).order_by(BlogPost.published_at.desc())).all()
-    return posts
-
-
-@app.get("/blog/{slug}", response_model=BlogPost)
-def get_blog_post(slug: str, session: Session = Depends(get_session)):
-    post = session.exec(select(BlogPost).where(BlogPost.slug == slug)).first()
-    if not post:
-        raise HTTPException(status_code=404, detail="Post not found")
-    return post
