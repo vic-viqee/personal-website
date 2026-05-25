@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import { fetchProjects } from './api.ts';
+import { fetchProjects, fetchSettings, fetchSections } from './api.ts';
 import type { Project } from './api.ts';
 import ProjectCard from './components/ProjectCard';
 import BlogList from './components/BlogList';
@@ -22,7 +22,12 @@ const DIFFICULTY_LABELS: { label: string; min: number; max: number }[] = [
   { label: 'EXTREME', min: 5, max: 5 },
 ];
 
-function Home({ projects, loading }: { projects: Project[], loading: boolean }) {
+function Home({ projects, loading, settings, sections }: {
+  projects: Project[];
+  loading: boolean;
+  settings: Record<string, string>;
+  sections: Record<string, boolean>;
+}) {
   const [filter, setFilter] = useState(0);
 
   const filtered = filter === 0
@@ -32,125 +37,126 @@ function Home({ projects, loading }: { projects: Project[], loading: boolean }) 
         return p.difficulty >= d.min && p.difficulty <= d.max;
       });
 
+  const visible = (section: string) => sections[section] !== false;
+
   return (
     <>
-      {/* HERO SECTION */}
-      <section className="comic-panel" style={{ textAlign: 'center', padding: '4rem 2rem' }}>
-        <h1 className="comic-title" style={{ fontSize: '4.5rem', marginBottom: '1rem', textShadow: '6px 6px 0px var(--c-accent)' }}>THE HERO WE NEED</h1>
-        <h2 className="comic-subtitle" style={{ fontSize: '2.5rem', color: 'var(--c-accent)', marginBottom: '2rem' }}>VICTOR LEWIS MURIMI</h2>
-        <p className="comic-text" style={{ fontSize: '1.2rem', maxWidth: '800px', margin: '0 auto 2rem' }}>
-          Developer by day. Vigilante coder by night. Welcome to my digital headquarters. Explore my
-          past missions and current capabilities.
-        </p>
-        <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-          <a href="https://www.linkedin.com/in/victorlewismurimi/" target="_blank" rel="noopener noreferrer" className="comic-btn" style={{ background: 'var(--c-success, #28a745)', color: '#fff', fontWeight: 'bold', letterSpacing: '1px' }}>
-            &check; AVAILABLE FOR HIRE
-          </a>
-          <a href="#contact" className="comic-btn">GET IN TOUCH!</a>
-          <a href="#projects" className="comic-btn">VIEW MISSIONS!</a>
-        </div>
-      </section>
-
-      {/* MISSIONS SECTION */}
-      <section id="projects" style={{ marginTop: '4rem' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem', flexWrap: 'wrap', gap: '1rem' }}>
-          <h2 style={{ fontSize: '3rem' }}>
-            PREVIOUS <span style={{ color: 'var(--c-accent)' }}>MISSIONS</span>
+      {visible('hero') && (
+        <section className="comic-panel" style={{ textAlign: 'center', padding: '4rem 2rem' }}>
+          <h1 className="comic-title" style={{ fontSize: '4.5rem', marginBottom: '1rem', textShadow: '6px 6px 0px var(--c-accent)' }}>
+            {settings.hero_greeting || 'THE HERO WE NEED'}
+          </h1>
+          <h2 className="comic-subtitle" style={{ fontSize: '2.5rem', color: 'var(--c-accent)', marginBottom: '2rem' }}>
+            {settings.hero_tagline || 'VICTOR LEWIS MURIMI'}
           </h2>
-          <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-            {DIFFICULTY_LABELS.map((d, i) => (
-              <button
-                key={d.label}
-                onClick={() => setFilter(i)}
-                className="comic-btn"
-                style={{
-                  fontSize: '0.75rem',
-                  padding: '5px 10px',
-                  background: filter === i ? 'var(--c-accent)' : 'var(--c-grey-light)',
-                  color: filter === i ? '#fff' : 'var(--c-black)',
-                }}
-              >
-                {d.label}
-              </button>
-            ))}
-          </div>
-        </div>
-        
-        {loading ? (
-          <div className="comic-panel">LOADING MISSIONS... POW! ZAP! BAM!</div>
-        ) : (
-          <div style={{ 
-            display: 'grid', 
-            gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))', 
-            gap: '2.5rem' 
-          }}>
-            {filtered.length > 0 ? filtered.map((project) => (
-              <ProjectCard key={project.id} project={project} />
-            )) : <div className="comic-panel">NO MISSIONS FOUND IN HQ DATABASE.</div>}
-          </div>
-        )}
-      </section>
-
-      {/* TIMELINE SECTION */}
-      <section style={{ marginTop: '4rem' }}>
-        <CodingSaga />
-      </section>
-
-      {/* SKILLS & EDUCATION SECTION */}
-      <section style={{ marginTop: '4rem', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '2rem' }}>
-        <Superpowers />
-        <TrainingAcademy />
-      </section>
-
-      {/* AWARDS SECTION */}
-      <section style={{ marginTop: '4rem' }}>
-        <AwardsSection />
-      </section>
-
-      {/* TOOLS SECTION */}
-      <section style={{ marginTop: '4rem' }}>
-        <GadgetArsenal />
-      </section>
-
-      {/* HOBBIES SECTION */}
-      <section style={{ marginTop: '4rem' }}>
-        <OffDutyPursuits />
-      </section>
-
-      {/* MOTTO SECTION */}
-      <section style={{ marginTop: '4rem' }} className="comic-panel">
-        <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem', textAlign: 'center' }}>MY <span style={{ color: 'var(--c-accent)' }}>CREED</span></h2>
-        <div style={{ textAlign: 'center', padding: '2rem' }}>
-          <p style={{ fontSize: '2rem', fontWeight: 'bold', fontFamily: 'var(--font-heading)' }}>
-            "BUILDING THE WORLD ONE LINE OF CODE AT A TIME"
+          <p className="comic-text" style={{ fontSize: '1.2rem', maxWidth: '800px', margin: '0 auto 2rem' }}>
+            Developer by day. Vigilante coder by night. Welcome to my digital headquarters. Explore my
+            past missions and current capabilities.
           </p>
-        </div>
-      </section>
-
-      {/* ORIGIN STORY SECTION */}
-      <section style={{ marginTop: '4rem' }} className="comic-panel">
-        <h2 style={{ fontSize: '2.5rem', marginBottom: '2rem' }}>THE ORIGIN STORY</h2>
-        <div style={{ display: 'flex', gap: '2rem', alignItems: 'center', flexWrap: 'wrap' }}>
-          <div style={{ flex: '1', minWidth: '300px' }}>
-            <p style={{ fontSize: '1.1rem', lineHeight: '1.8' }}>
-              My name is Victor Lewis Murimi. I'm a passionate developer based in Kenya. Every great hero has an origin
-              story; mine began with a curiosity for how things work on the web. I'm a proud graduate of the
-              Tembo Tech Ventures Cohort 04 — 7 months of building real full-stack applications and shipping
-              production software. Today, I use my powers to build robust, user-friendly digital experiences.
-              When I'm not coding, I'm playing chess, watching football or plotting my next big project.
-            </p>
+          <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <a href="https://www.linkedin.com/in/victorlewismurimi/" target="_blank" rel="noopener noreferrer" className="comic-btn" style={{ background: 'var(--c-success, #28a745)', color: '#fff', fontWeight: 'bold', letterSpacing: '1px' }}>
+              &check; AVAILABLE FOR HIRE
+            </a>
+            <a href="#contact" className="comic-btn">GET IN TOUCH!</a>
+            <a href="#projects" className="comic-btn">VIEW MISSIONS!</a>
           </div>
-          <div className="comic-panel" style={{ background: 'var(--c-grey-light)', maxWidth: '400px' }}>
-            <p style={{ fontWeight: 'bold' }}>DID YOU KNOW?</p>
-            <p>I once debugged for 48 hours straight fueled by coffee and sheer willpower!</p>
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
 
-      {/* CONTACT SECTION */}
-      <section id="contact" style={{ marginTop: '4rem' }}>
-        <ContactSection />
-      </section>
+      {visible('projects') && (
+        <section id="projects" style={{ marginTop: '4rem' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem', flexWrap: 'wrap', gap: '1rem' }}>
+            <h2 style={{ fontSize: '3rem' }}>
+              PREVIOUS <span style={{ color: 'var(--c-accent)' }}>MISSIONS</span>
+            </h2>
+            <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+              {DIFFICULTY_LABELS.map((d, i) => (
+                <button
+                  key={d.label}
+                  onClick={() => setFilter(i)}
+                  className="comic-btn"
+                  style={{
+                    fontSize: '0.75rem',
+                    padding: '5px 10px',
+                    background: filter === i ? 'var(--c-accent)' : 'var(--c-grey-light)',
+                    color: filter === i ? '#fff' : 'var(--c-black)',
+                  }}
+                >
+                  {d.label}
+                </button>
+              ))}
+            </div>
+          </div>
+          
+          {loading ? (
+            <div className="comic-panel">LOADING MISSIONS... POW! ZAP! BAM!</div>
+          ) : (
+            <div style={{ 
+              display: 'grid', 
+              gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))', 
+              gap: '2.5rem' 
+            }}>
+              {filtered.length > 0 ? filtered.map((project) => (
+                <ProjectCard key={project.id} project={project} />
+              )) : <div className="comic-panel">NO MISSIONS FOUND IN HQ DATABASE.</div>}
+            </div>
+          )}
+        </section>
+      )}
+
+      {visible('timeline') && (
+        <section style={{ marginTop: '4rem' }}>
+          <CodingSaga />
+        </section>
+      )}
+
+      {(visible('skills') || visible('education')) && (
+        <section style={{ marginTop: '4rem', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '2rem' }}>
+          {visible('skills') && <Superpowers />}
+          {visible('education') && <TrainingAcademy />}
+        </section>
+      )}
+
+      {visible('awards') && (
+        <section style={{ marginTop: '4rem' }}>
+          <AwardsSection />
+        </section>
+      )}
+
+      {visible('tools') && (
+        <section style={{ marginTop: '4rem' }}>
+          <GadgetArsenal />
+        </section>
+      )}
+
+      {visible('hobbies') && (
+        <section style={{ marginTop: '4rem' }}>
+          <OffDutyPursuits />
+        </section>
+      )}
+
+      {visible('origin_story') && (
+        <section style={{ marginTop: '4rem' }} className="comic-panel">
+          <h2 style={{ fontSize: '2.5rem', marginBottom: '2rem' }}>THE ORIGIN STORY</h2>
+          <div style={{ display: 'flex', gap: '2rem', alignItems: 'center', flexWrap: 'wrap' }}>
+            <div style={{ flex: '1', minWidth: '300px' }}>
+              <p style={{ fontSize: '1.1rem', lineHeight: '1.8' }}>
+                {settings.origin_story || "My name is Victor Lewis Murimi. I'm a passionate developer based in Kenya. Every great hero has an origin story; mine began with a curiosity for how things work on the web. I'm a proud graduate of the Tembo Tech Ventures Cohort 04 — 7 months of building real full-stack applications and shipping production software. Today, I use my powers to build robust, user-friendly digital experiences. When I'm not coding, I'm playing chess, watching football or plotting my next big project."}
+              </p>
+            </div>
+            <div className="comic-panel" style={{ background: 'var(--c-grey-light)', maxWidth: '400px' }}>
+              <p style={{ fontWeight: 'bold' }}>DID YOU KNOW?</p>
+              <p>I once debugged for 48 hours straight fueled by coffee and sheer willpower!</p>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {visible('contact') && (
+        <section id="contact" style={{ marginTop: '4rem' }}>
+          <ContactSection />
+        </section>
+      )}
     </>
   );
 }
@@ -158,6 +164,8 @@ function Home({ projects, loading }: { projects: Project[], loading: boolean }) 
 function App() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
+  const [settings, setSettings] = useState<Record<string, string>>({});
+  const [sections, setSections] = useState<Record<string, boolean>>({});
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const [showScrollTop, setShowScrollTop] = useState(false);
 
@@ -175,6 +183,8 @@ function App() {
       console.error("Failed to fetch projects:", err);
       setLoading(false);
     });
+    fetchSettings().then(setSettings).catch(() => {});
+    fetchSections().then(setSections).catch(() => {});
   }, []);
 
   const toggleTheme = () => {
@@ -203,7 +213,7 @@ function App() {
         </header>
 
         <Routes>
-          <Route path="/" element={<Home projects={projects} loading={loading} />} />
+          <Route path="/" element={<Home projects={projects} loading={loading} settings={settings} sections={sections} />} />
           <Route path="/blog" element={<BlogList />} />
           <Route path="/blog/:slug" element={<BlogPostView />} />
           <Route path="/admin" element={<Admin />} />

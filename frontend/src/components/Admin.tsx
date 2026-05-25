@@ -340,6 +340,7 @@ function SectionsPanel({ api, onStatus }: { api: ReturnType<typeof adminApi>; on
   };
 
   const sectionLabels: Record<string, string> = {
+    hero: 'Hero Section',
     projects: 'Projects / Missions',
     skills: 'Skills / Superpowers',
     timeline: 'Timeline / Saga',
@@ -347,6 +348,7 @@ function SectionsPanel({ api, onStatus }: { api: ReturnType<typeof adminApi>; on
     awards: 'Awards / Achievements',
     tools: 'Tools / Gadget Arsenal',
     hobbies: 'Hobbies / Off-Duty Pursuits',
+    origin_story: 'Origin Story',
     contact: 'Contact Section',
     blog: 'Blog / Intel',
   };

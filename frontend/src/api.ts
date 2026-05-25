@@ -212,3 +212,8 @@ export const fetchSettings = async (): Promise<Record<string, string>> => {
   const response = await axios.get(`${API_BASE_URL}/settings`);
   return response.data;
 };
+
+export const fetchSections = async (): Promise<Record<string, boolean>> => {
+  const response = await axios.get(`${API_BASE_URL}/sections`);
+  return response.data;
+};
