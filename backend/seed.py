@@ -149,21 +149,30 @@ def seed_awards():
         for item in items:
             title_tag = item.select_one("h4")
             if not title_tag: continue
-            title = title_tag.text.strip()
+            title = " ".join(title_tag.text.strip().split())
+
+            badge_div = item.select_one("div[data-share-badge-id]")
+            is_cert = item.name == "a" and item.get("href")
+            href = None
+            if is_cert:
+                href = item.get("href")
+                if not href.startswith("http") and not href.startswith("/"):
+                    href = "/legacy-static/" + href
 
             existing = session.exec(select(Award).where(Award.title == title)).first()
             if existing:
+                if is_cert and existing.badge_id is None and not existing.link:
+                    existing.is_certificate = True
+                    existing.link = href
+                    existing.host = existing.host or "Cisco Networking Academy"
+                    seed_count += 1
                 continue
 
-            badge_div = item.select_one("div[data-share-badge-id]")
             if badge_div:
                 badge_id = badge_div.get("data-share-badge-id")
                 session.add(Award(title=title, badge_id=badge_id))
                 seed_count += 1
-            elif item.name == "a" and item.get("href"):
-                href = item.get("href")
-                if not href.startswith("http") and not href.startswith("/"):
-                    href = "/legacy-static/" + href
+            elif is_cert:
                 session.add(Award(title=title, is_certificate=True, link=href, host="Cisco Networking Academy"))
                 seed_count += 1
 
