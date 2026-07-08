@@ -352,6 +352,78 @@ def seed_tembo_blog_post():
             print("Tembo blog post already exists.")
 
 
+def seed_viq_systems_blog_post():
+    content = (
+        '<div class="comic-panel">'
+        "<h1>Building Viq Systems: Code, Chaos, and the Reality of Tech Entrepreneurship</h1>"
+        "<p><em>Published July 2026</em></p>"
+        "<h2>Moving Beyond the Sandbox</h2>"
+        "<p>After spending months building full-stack applications in structured environments, I realized something critical: shipping clean code is only 20% of the battle. "
+        "The remaining 80% is building a system that a real business actually needs, values, and is willing to pay for.</p>"
+        "<p>That realization is what led me to launch Viq Systems (viqsystems.tech).</p>"
+        "<p>The goal was straightforward but ambitious: build robust, highly automated custom business systems designed to eliminate manual bottlenecks for enterprises. "
+        "But moving from a local environment to trying to acquire real paying clients opened up an entirely new set of challenges—both in the terminal and out in the real world.</p>"
+        "<h2>The Core Architecture</h2>"
+        "<p>To handle real-world business data without falling apart, I needed a stack optimized for speed, reliability, and rapid iteration. I built the foundation of Viq Systems utilizing:</p>"
+        "<ul>"
+        "<li><strong>FastAPI</strong> – For a blazing-fast, type-safe asynchronous backend.</li>"
+        "<li><strong>PostgreSQL &amp; Prisma</strong> – To model complex, relational business data with strict integrity.</li>"
+        "<li><strong>Next.js &amp; Tailwind CSS</strong> – To deliver a clean, intuitive, and highly responsive user dashboard.</li>"
+        "<li><strong>Automated Workflows</strong> – Deeply integrated background tasks designed to handle core business logic seamlessly.</li>"
+        "</ul>"
+        "<h2>Where the Code Broke: The Technical Hurdles</h2>"
+        "<p>Building a commercial product means there is zero room for error. If a script fails in a personal project, you restart the server. "
+        "If an automated pipeline fails in a live business system, a company loses money.</p>"
+        "<p>One of the biggest engineering hurdles was designing the state management for our automated business workflows. "
+        "When dealing with multi-step processes—like handling sequential data updates or external API triggers—real-world edge cases constantly try to break the chain. "
+        "I had to implement strict error handling, retry mechanisms, and asynchronous worker queues to ensure that even if a network request dropped or an unexpected payload arrived, "
+        "the system could recover gracefully without losing data integrity.</p>"
+        "<p>I also had to transition our web service monitoring to a strict, highly active setup using Cronitor, "
+        "ensuring that any heartbeat failure or silent backend error alerts me instantly before a client ever notices.</p>"
+        "<h2>The 'Hard' Part: The Marketing Grind</h2>"
+        "<p>If building the engine was a technical challenge, getting people to care about it was an absolute reality check.</p>"
+        "<p>As developers, we like to think that if we build something beautiful, users will magically appear. They don't. "
+        "The reality of tech entrepreneurship is that clean code doesn't matter if nobody knows your product exists.</p>"
+        "<p>The marketing grind has been the hardest part of this journey. I've had to completely step out of my comfort zone and learn how to sell. This means:</p>"
+        "<ul>"
+        "<li><strong>Handling Constant Rejection:</strong> Reaching out to busy business managers who have zero time to read an email or listen to a pitch.</li>"
+        "<li><strong>Translating Tech into Value:</strong> Learning that non-technical business owners do not care about FastAPI, Docker, or database normalization. "
+        "They care about two things: saving time and cutting costs. I've had to completely re-engineer my pitch from explaining how the code works "
+        "to demonstrating how much manual labor the system eliminates.</li>"
+        "<li><strong>The Continuous Hustle:</strong> Consistently doing cold outreach, refining the value proposition, "
+        "and finding the specific operational gaps where custom automation can make an undeniable impact.</li>"
+        "</ul>"
+        "<h2>What I've Learned So Far</h2>"
+        "<p>Launching Viq Systems has completely evolved how I approach software engineering. "
+        "It has forced me to stop thinking just like a coder and start thinking like a product owner. "
+        "Every line of code I write now is directly tied to a business outcome.</p>"
+        "<p>The hustle is real, the rejections are frequent, but the momentum is building. "
+        "We are actively pushing forward, refining our custom modules, and knocking on doors to show businesses what true software-driven automation looks like.</p>"
+        "<p>If you are a business owner looking to automate your workflows, streamline your data, "
+        "and stop wasting hours on repetitive manual tasks, check out what we are doing at viqsystems.tech. Let's build something efficient together.</p>"
+        "</div>"
+    )
+
+    post = BlogPost(
+        title="Building Viq Systems: Code, Chaos, and the Reality of Tech Entrepreneurship",
+        slug="building-viq-systems-code-chaos-and-the-reality-of-tech-entrepreneurship",
+        content=content,
+        excerpt=(
+            "After spending months building full-stack applications in structured environments, I realized something critical: "
+            "shipping clean code is only 20% of the battle."
+        ),
+        image_url="assets/images/viq_systems.png",
+    )
+    with Session(engine) as session:
+        existing = session.exec(select(BlogPost).where(BlogPost.slug == post.slug)).first()
+        if not existing:
+            session.add(post)
+            session.commit()
+            print("Seeded Viq Systems blog post.")
+        else:
+            print("Viq Systems blog post already exists.")
+
+
 if __name__ == "__main__":
     from database import create_db_and_tables
     create_db_and_tables()
@@ -364,5 +436,6 @@ if __name__ == "__main__":
     seed_awards()
     seed_new_projects()
     seed_tembo_blog_post()
+    seed_viq_systems_blog_post()
     seed_tools()
     seed_hobbies()
