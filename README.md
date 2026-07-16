@@ -2,6 +2,14 @@
 
 A full-stack superhero-themed portfolio website with a React frontend, FastAPI backend, PostgreSQL database, and Telegram AI Assistant.
 
+## Live Demo
+
+- **Website**: [https://victormurimi.dev](https://victormurimi.dev)
+
+## About
+
+A comic-book themed portfolio showcasing projects, skills, and journey as a software developer. Features an admin dashboard ("Mission Control") for managing content, a Telegram AI assistant powered by Gemini, dark/light mode, animated skill bars, and a visual timeline. Everything is content-managed through the admin panel — no code changes needed to update the site.
+
 ---
 
 ## 🚀 Tech Stack
