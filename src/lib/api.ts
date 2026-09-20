@@ -87,6 +87,8 @@ function adminApi(secret: string) {
   const headers = { "X-Admin-Secret": secret, "Content-Type": "application/json" };
 
   return {
+    verify: () => request<{ ok: boolean }>("/verify", { method: "POST", headers }),
+
     createBlogPost: (data: Partial<BlogPost>) =>
       request<BlogPost>("/blog", { method: "POST", headers, body: JSON.stringify(data) }),
     updateBlogPost: (id: number, data: Partial<BlogPost>) =>

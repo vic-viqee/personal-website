@@ -145,8 +145,8 @@ function ImageUploadField({ field, value, onChange, onUpload }: {
     try {
       const result = await onUpload(file);
       onChange(result.url);
-    } catch {
-      setError("UPLOAD FAILED!");
+    } catch (err) {
+      setError(err instanceof Error ? `UPLOAD FAILED: ${err.message}` : "UPLOAD FAILED!");
     } finally {
       setUploading(false);
     }
@@ -549,11 +549,23 @@ function OverviewPanel() {
 const Admin: React.FC = () => {
   const [secret, setSecret] = useState("");
   const [authenticated, setAuthenticated] = useState(false);
+  const [loginError, setLoginError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<Tab>("overview");
   const [status, setStatus] = useState<string | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
   const api = adminApi(secret);
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoginError(null);
+    try {
+      await adminApi(secret).verify();
+      setAuthenticated(true);
+    } catch (err) {
+      setLoginError(err instanceof Error ? err.message : "Authentication failed");
+    }
+  };
 
   const showStatus = (msg: string | null) => {
     setStatus(msg);
@@ -566,10 +578,11 @@ const Admin: React.FC = () => {
         <div className="comic-panel" style={{ maxWidth: "400px", width: "100%", textAlign: "center" }}>
           <h2 style={{ fontSize: "2rem", marginBottom: "8px" }}>MISSION <span style={{ color: "var(--c-accent)" }}>CONTROL</span></h2>
           <p style={{ opacity: 0.6, fontSize: "0.85rem", marginBottom: "20px" }}>AUTHORIZATION REQUIRED</p>
-          <form onSubmit={e => { e.preventDefault(); setAuthenticated(true); }} style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+          <form onSubmit={handleLogin} style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
             <input type="password" value={secret} onChange={e => setSecret(e.target.value)} placeholder="ENTER ADMIN SECRET" required style={{ width: "100%", padding: "12px", border: "var(--border-thin)", fontFamily: "var(--font-body)", textAlign: "center", fontSize: "1.1rem", boxSizing: "border-box" }} />
             <button type="submit" className="comic-btn" style={{ fontSize: "1rem", padding: "12px" }}>AUTHENTICATE</button>
           </form>
+          {loginError && <p style={{ color: "#ff4444", fontSize: "0.75rem", marginTop: "10px", fontWeight: "bold" }}>{loginError}</p>}
         </div>
       </div>
     );
