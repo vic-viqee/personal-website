@@ -1,48 +1,18 @@
-# Agent Instructions
+<!-- BEGIN:nextjs-agent-rules -->
 
-## Project
-Personal portfolio site at victormurimi.dev — comic-book hero theme ("Mission Control").
-Backend: FastAPI + SQLModel on Render. Frontend: React + Vite on Render.
+# This is NOT the Next.js you know
 
-## Commands
-| Task | Command |
-|------|---------|
-| Build frontend | `cd frontend && npm run build` |
-| Run backend | `cd backend && source venv/bin/activate && uvicorn main:app --reload` |
-| Seed production DB | `cd backend && source venv/bin/activate && python -c "from seed import seed_awards; seed_awards()"` |
-| TypeScript check | `cd frontend && npx tsc --noEmit` |
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
 
-## Admin Dashboard
-- `/admin` — Mission Control dashboard (requires secret)
-- Admin secret: prompt-based login (no longer stored in frontend)
-- Full CRUD for all 8 content types + site settings + section visibility
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
 
-## Content Models (10 total)
-- Project, BlogPost, Skill, TimelineEvent, EducationEntry, Award, Tool, Hobby
-- SiteSetting (key-value for hero text, social links, email, etc.)
-- SectionVisibility (toggle homepage sections on/off)
+<!-- END:nextjs-agent-rules -->
 
-## Key Conventions
-- No comments in code unless absolutely necessary
-- Comic-book themed: Superpowers, HQ, SAGA, INTEL, Gadget Arsenal, etc.
-- All admin CRUD endpoints require `X-Admin-Secret` header
-- Public GET endpoints are unauthenticated
-- Tailwind not used — all styles via CSS variables and inline styles
-- Backend auto-creates all tables on startup via SQLModel.metadata
-- PostgreSQL on Neon; local dev uses DATABASE_URL env var
-- Deploy: push to main → Render auto-deploys
+# Project-specific notes
 
-## External References
-| Need | File |
-|------|------|
-| API endpoints | `backend/main.py` |
-| Data models | `backend/models.py` |
-| Seed data | `backend/seed.py` |
-| Admin UI | `frontend/src/components/Admin.tsx` |
-| API client | `frontend/src/api.ts` |
-
-## Commit Attribution
-AI commits MUST include:
-```
-Co-Authored-By: Opencode <noreply@opencode.ai>
-```
+- Next.js 16 + React 19 app on Cloudflare Workers via **vinext** (not a standard Next deployment). See `node_modules/vinext/` and `node_modules/@vinext/cloudflare/` for runtime behavior; `wrangler.jsonc` defines the `vic-portfolio` worker (`DB` = D1, `VINEXT_KV_CACHE` = KV, assets = `dist/client`).
+- Content lives in **Cloudflare D1** (`migrations/`). API routes in `src/app/api/**/route.ts`; the admin panel (`/admin`, UI in `src/components/Admin.tsx`) mutates the same tables.
+- Admin auth: `X-Admin-Secret` header vs `ADMIN_SECRET` binding — see `src/lib/auth.ts`.
+- Local D1: `npx wrangler d1 execute vic-portfolio-db --local --file=migrations/XXXX`.
+- Dev server: `npm run dev:vinext` (port 3001). Build/deploy: `npm run build:vinext`, `npm run deploy:vinext`.
+- `public/legacy-static/` is static content carried over from the retired Vite/FastAPI site; the live worker serves it via `ASSETS`.

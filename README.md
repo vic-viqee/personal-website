@@ -1,264 +1,61 @@
-# VL Murimi | Portfolio Website
+# Vic Portfolio — Personal Website
 
-A full-stack superhero-themed portfolio website with a React frontend, FastAPI backend, PostgreSQL database, and Telegram AI Assistant.
+My portfolio site (victormurimi.dev), rebuilt as a full-stack Next.js app running on **Cloudflare Workers** via [vinext](https://github.com/cloudflare/vinext), with a **Cloudflare D1** database.
 
-## Live Demo
+Sections (About, Skills, Projects, Blog, Timeline, Awards, Hobbies, Tools, Training) are served from D1 through typed API routes, plus a password-protected **admin panel** for CRUD over every content type.
 
-- **Website**: [https://victormurimi.dev](https://victormurimi.dev)
+## Stack
 
-## About
+- **Next.js 16** (App Router, React 19, server components)
+- **vinext** — Next.js runtime for Cloudflare Workers
+- **Vite** + **@cloudflare/vite-plugin** — build toolchain
+- **Tailwind CSS v4**
+- **Cloudflare D1** — SQLite-compatible database (via `DB` binding)
+- **Cloudflare KV** — response cache (`VINEXT_KV_CACHE`)
+- Deploys with **`wrangler`** (see `wrangler.jsonc`, worker `vic-portfolio`)
 
-A comic-book themed portfolio showcasing projects, skills, and journey as a software developer. Features an admin dashboard ("Mission Control") for managing content, a Telegram AI assistant powered by Gemini, dark/light mode, animated skill bars, and a visual timeline. Everything is content-managed through the admin panel — no code changes needed to update the site.
-
----
-
-## 🚀 Tech Stack
-
-| Layer | Technology |
-|-------|------------|
-| **Frontend** | React 19 + TypeScript + Vite + React Router 7 |
-| **Backend** | FastAPI (Python) + SQLModel |
-| **Database** | PostgreSQL (Neon) |
-| **Hosting** | Render |
-| **Assistant** | Telegram Bot (aiogram + Gemini AI) |
-
----
-
-## 🏗️ Project Structure
-
-```
-personal-website/
-├── backend/               # FastAPI application
-│   ├── main.py           # API endpoints
-│   ├── models.py         # Database models
-│   ├── database.py       # DB connection
-│   ├── seed.py           # Data seeding script
-│   ├── assistant.py      # Telegram bot
-│   ├── requirements.txt  # Python dependencies
-│   └── .env              # Environment variables
-├── frontend/             # React application
-│   ├── src/
-│   │   ├── components/  # React components
-│   │   ├── api.ts       # API client
-│   │   ├── App.tsx      # Main app with routing
-│   │   └── index.css    # Global styles
-│   ├── public/           # Static assets
-│   ├── package.json     # Node dependencies
-│   └── vite.config.ts   # Vite configuration
-├── render.yaml           # Render deployment config
-├── docker-compose.yml    # Local dev infrastructure (optional)
-└── README.md            # This file
-```
-
----
-
-## 🛠️ Local Development Setup
-
-### Option A: With Docker (Recommended)
-
-Start PostgreSQL and pgAdmin locally:
+## Getting Started
 
 ```bash
-docker-compose up -d
-```
-
-- PostgreSQL runs on port **5433** (to avoid conflicts)
-- pgAdmin: http://localhost:5050 | email: `admin@admin.com` | password: `admin`
-
-### Option B: Without Docker
-
-Use a local PostgreSQL instance and update `backend/.env`:
-```
-DATABASE_URL=postgresql://user:password@localhost:5432/your_db
-```
-
----
-
-### 1. Backend Setup (FastAPI)
-
-```bash
-cd backend
-
-# Create virtual environment
-python3 -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Update .env with your settings
-cp .env.example .env
-# Edit .env with DATABASE_URL and TELEGRAM_BOT_TOKEN
-
-# Seed database with sample data
-python seed.py
-
-# Start development server
-uvicorn main:app --reload
-```
-
-**Backend runs at:** http://localhost:8000
-
----
-
-### 2. Frontend Setup (React)
-
-```bash
-cd frontend
-
-# Install dependencies
 npm install
-
-# Start development server
-npm run dev
+npm run dev:vinext        # dev server on http://localhost:3001
 ```
 
-**Frontend runs at:** http://localhost:5173
-
----
-
-### 3. Telegram Assistant (Optional)
-
-To run the AI assistant bot:
+For an isolated preview build:
 
 ```bash
-cd backend
-source venv/bin/activate
-python assistant.py
+npm run build:vinext      # produces dist/client + dist/server
+npm run start:vinext      # run the built worker locally
 ```
 
----
+## Local D1
 
-## 🌐 Deployment
+The app reads/writes D1. For local development the D1 binding is stubbed by
+wrangler's local state; apply migrations locally with:
 
-### Database (Neon)
-
-1. Create a project at [neon.tech](https://neon.tech)
-2. Copy the connection string (add `?sslmode=require`)
-3. Add to backend environment variables as `DATABASE_URL`
-
-### Backend (Render)
-
-1. Create a **Web Service** on Render
-2. Connect GitHub repository, select `backend/` folder
-3. Configure:
-   - **Build Command**: `pip install -r requirements.txt`
-   - **Start Command**: `uvicorn main:app --host 0.0.0.0 --port $PORT`
-4. Add environment variables:
-   - `DATABASE_URL` = your Neon connection string
-   - `TELEGRAM_BOT_TOKEN` = your Telegram bot token
-   - `ADMIN_SECRET` = a secure password for admin access
-
-### Frontend (Render)
-
-1. Create a **Static Site** on Render
-2. Connect GitHub repository, select `frontend/` folder
-3. Configure:
-   - **Root Directory**: `frontend`
-   - **Build Command**: `npm install && npm run build`
-   - **Publish Directory**: `dist`
-4. Add environment variables:
-   - `VITE_API_URL` = your backend URL (e.g., `https://portfolio-backend.onrender.com`)
-   - `VITE_ADMIN_SECRET` = same as ADMIN_SECRET
-5. **Add Rewrite Rule** (Critical for SPA routing):
-   - Go to **Redirect and Rewrite Rules**
-   - Add: **Rewrite** `/*` → `/index.html`
-6. Deploy
-
----
-
-## 📝 Content Management
-
-### Accessing the Admin Panel
-
-Visit: `https://your-site.onrender.com/admin`
-
-You'll need to set `ADMIN_SECRET` on the backend and `VITE_ADMIN_SECRET` on the frontend.
-
-### Admin Tabs
-
-| Tab | Purpose |
-|-----|---------|
-| **BLOG** | Create new blog posts (title, excerpt, HTML content) |
-| **PROJECT** | Add portfolio projects (name, description, tech stack, links, mission briefing) |
-| **SKILL** | Add skills/superpowers (name, level 0-100, category) |
-| **TIMELINE** | Add timeline events (year, title, description, side: left/right) |
-| **EDUCATION** | Add education entries (degree, institution, years) |
-| **AWARD** | Add achievements/badges (title, host, badge ID, certificate flag) |
-| **TOOL** | Add tools/gadgets (name, description, icon URL) |
-| **HOBBY** | Add hobbies/off-duty pursuits (name, side: left/right) |
-
----
-
-## 🔌 API Endpoints
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `GET` | `/projects` | List all projects |
-| `POST` | `/projects` | Create project (admin only) |
-| `GET` | `/skills` | List all skills |
-| `POST` | `/skills` | Create skill (admin only) |
-| `GET` | `/timeline` | List timeline events |
-| `POST` | `/timeline` | Create timeline event (admin only) |
-| `GET` | `/education` | List education entries |
-| `POST` | `/education` | Create education entry (admin only) |
-| `GET` | `/awards` | List awards |
-| `POST` | `/awards` | Create award (admin only) |
-| `GET` | `/tools` | List tools |
-| `POST` | `/tools` | Create tool (admin only) |
-| `GET` | `/hobbies` | List hobbies |
-| `POST` | `/hobbies` | Create hobby (admin only) |
-| `GET` | `/blog` | List blog posts |
-| `GET` | `/blog/{slug}` | Get single blog post |
-| `POST` | `/blog` | Create blog post (admin only) |
-
-**All POST endpoints require `X-Admin-Secret` header.**
-
----
-
-## 🎨 Site Features
-
-- **Superhero Theme**: Comic book-inspired UI with "missions" for projects, "superpowers" for skills
-- **Dark/Light Mode**: Toggle between themes
-- **Responsive Design**: Works on mobile, tablet, and desktop
-- **Animated Skills**: Progress bars with staggered animations and level badges
-- **Timeline**: Visual coding journey with alternating left/right layout
-- **Telegram Assistant**: AI-powered bot for answering questions about the portfolio
-
----
-
-## 🔧 Environment Variables
-
-### Backend (.env)
-
-```env
-DATABASE_URL=postgresql://user:password@host.neon.tech/db?sslmode=require
-TELEGRAM_BOT_TOKEN=your_telegram_bot_token
-ADMIN_SECRET=your_secure_password
+```bash
+npx wrangler d1 execute vic-portfolio-db --local --file=migrations/0001_init.sql
+npx wrangler d1 execute vic-portfolio-db --local --file=migrations/0002_data.sql
 ```
 
-### Frontend (.env)
+## Configuration
 
-```env
-VITE_API_URL=https://your-backend.onrender.com
-VITE_ADMIN_SECRET=your_secure_password
+- **`wrangler.jsonc`** — worker name, D1 binding (`DB`), KV binding (`VINEXT_KV_CACHE`), assets (built client at `dist/client`).
+- **`ADMIN_SECRET`** — secret guarding `/admin` and all write API routes. Sent as the `X-Admin-Secret` header from the admin UI. Defaults to a dev fallback value if unset — always set a real secret in production:
+
+  ```bash
+  npx wrangler secret put ADMIN_SECRET   # prod
+  npx wrangler secret put ADMIN_SECRET --local   # local dev
+  ```
+
+## Migration from the legacy site
+
+The old Vite/FastAPI site (previously `frontend/` + `backend/`) is being retired in favor of this repo. Static assets from the old site live on under `public/legacy-static/`. The data import script that seeded D1 from the old Postgres is at `scripts/dump_pg_to_d1.py`.
+
+## Deployment
+
+```bash
+npm run deploy:vinext     # build + deploy to Cloudflare Workers
 ```
 
----
-
-## 🦸‍♂️ Quick Commands
-
-| Action | Command |
-|--------|---------|
-| Start local DB | `docker-compose up -d` |
-| Stop local DB | `docker-compose down` |
-| Seed database | `cd backend && python seed.py` |
-| Run backend | `cd backend && uvicorn main:app --reload` |
-| Run frontend | `cd frontend && npm run dev` |
-| Build frontend | `cd frontend && npm run build` |
-
----
-
-## 📄 License
-
-&copy; 2026 Victor Lewis Murimi. All rights reserved.
+Live: https://vic-portfolio.victorlewismurimi.workers.dev
