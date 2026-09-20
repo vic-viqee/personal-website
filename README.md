@@ -11,7 +11,7 @@ Sections (About, Skills, Projects, Blog, Timeline, Awards, Hobbies, Tools, Train
 - **Vite** + **@cloudflare/vite-plugin** — build toolchain
 - **Tailwind CSS v4**
 - **Cloudflare D1** — SQLite-compatible database (via `DB` binding)
-- **Cloudflare KV** — response cache (`VINEXT_KV_CACHE`)
+- **Cloudflare KV** — response cache (`VINEXT_KV_CACHE`) and image uploads (`UPLOADS`, namespace `vic-portfolio-uploads`)
 - Deploys with **`wrangler`** (see `wrangler.jsonc`, worker `vic-portfolio`)
 
 ## Getting Started
@@ -38,9 +38,40 @@ npx wrangler d1 execute vic-portfolio-db --local --file=migrations/0001_init.sql
 npx wrangler d1 execute vic-portfolio-db --local --file=migrations/0002_data.sql
 ```
 
+## Images
+
+Image URLs for projects, blog posts, and tools are stored in D1 as relative paths and resolved at render time (`resolveImageUrl`):
+
+- A value starting with `/` or `http(s)://` is used as-is.
+- Anything else is served from the legacy static assets: `/legacy-static/<value>`.
+
+### Option A — upload from the admin panel (drag & drop)
+
+In `/admin`, the Projects and Blog edit forms have drag-and-drop image fields. Drop
+(or click and pick) an image file and it is uploaded to the **Workers KV**
+namespace (`UPLOADS` binding, `uploads/` prefix, max 5MB, image types only) via
+`POST /api/upload` (admin secret required). The returned `/api/uploads/<key>`
+URL is written into the `image_url` field automatically.
+
+### Option B — add a static file locally, then push
+
+Static assets live in `public/legacy-static/`. To add an image shipped with the
+repo:
+
+```bash
+# 1. drop the file into the images dir
+cp ~/Pictures/fluxpay.png public/legacy-static/assets/images/
+
+# 2. deploy the updated static assets along with the code
+npm run deploy:vinext
+
+# 3. in /admin, set the Image URL (relative value; /legacy-static/ is added automatically)
+#    e.g.  assets/images/fluxpay.png
+```
+
 ## Configuration
 
-- **`wrangler.jsonc`** — worker name, D1 binding (`DB`), KV binding (`VINEXT_KV_CACHE`), assets (built client at `dist/client`).
+- **`wrangler.jsonc`** — worker name, D1 binding (`DB`), KV namespaces (`VINEXT_KV_CACHE`, `UPLOADS`), assets (built client at `dist/client`).
 - **`ADMIN_SECRET`** — secret guarding `/admin` and all write API routes. Sent as the `X-Admin-Secret` header from the admin UI. Defaults to a dev fallback value if unset — always set a real secret in production:
 
   ```bash

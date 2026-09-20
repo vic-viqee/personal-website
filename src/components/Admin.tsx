@@ -10,13 +10,14 @@ import type {
   Project, BlogPost, Skill, TimelineEvent,
   EducationEntry, Award, Tool, Hobby,
 } from "@/lib/api";
+import { resolveImageUrl } from "@/lib/image";
 
 type Tab = "overview" | "project" | "blog" | "skill" | "timeline" | "education" | "award" | "tool" | "hobby" | "settings" | "sections";
 
 interface FieldDef {
   key: string;
   label: string;
-  type: "text" | "textarea" | "number" | "range" | "select" | "checkbox" | "url" | "csv";
+  type: "text" | "textarea" | "number" | "range" | "select" | "checkbox" | "url" | "csv" | "image";
   options?: { value: string; label: string }[];
   placeholder?: string;
 }
@@ -47,7 +48,7 @@ const PROJECT_FIELDS: FieldDef[] = [
   { key: "tech_stack", label: "Tech Stack", type: "csv", placeholder: "React, Node.js, Postgres" },
   { key: "live_demo_link", label: "Live Demo URL", type: "url" },
   { key: "github_repo_link", label: "GitHub Repo URL", type: "url" },
-  { key: "image_url", label: "Image URL", type: "text", placeholder: "assets/images/project.png" },
+  { key: "image_url", label: "Image URL", type: "image", placeholder: "assets/images/project.png" },
   { key: "mission_briefing", label: "Mission Briefing (HTML)", type: "textarea" },
 ];
 
@@ -55,7 +56,7 @@ const BLOG_FIELDS: FieldDef[] = [
   { key: "title", label: "Title", type: "text" },
   { key: "excerpt", label: "Excerpt", type: "text" },
   { key: "content", label: "Content (HTML)", type: "textarea" },
-  { key: "image_url", label: "Cover Image URL", type: "url" },
+  { key: "image_url", label: "Cover Image URL", type: "image" },
 ];
 
 const SKILL_FIELDS: FieldDef[] = [
@@ -118,16 +119,98 @@ interface CrudConfig {
   defaultForm: Record<string, unknown>;
   listDisplay: (item: EntityType) => { primary: string; secondary?: string; meta?: string };
   reorder?: { onReorder: (orders: { id: number; sort_order: number }[]) => Promise<unknown> };
+  uploadImage?: (file: File) => Promise<{ url: string }>;
 }
 
-function FormField({ field, value, onChange }: {
+function ImageUploadField({ field, value, onChange, onUpload }: {
   field: FieldDef;
   value: unknown;
   onChange: (val: unknown) => void;
+  onUpload: (file: File) => Promise<{ url: string }>;
+}) {
+  const [dragging, setDragging] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const inputRef = React.useRef<HTMLInputElement>(null);
+  const url = typeof value === "string" ? value : "";
+
+  const handleFile = async (file: File | undefined) => {
+    if (!file) return;
+    setError(null);
+    if (!file.type.startsWith("image/")) {
+      setError("ONLY IMAGES ALLOWED!");
+      return;
+    }
+    setUploading(true);
+    try {
+      const result = await onUpload(file);
+      onChange(result.url);
+    } catch {
+      setError("UPLOAD FAILED!");
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    setDragging(false);
+    handleFile(e.dataTransfer.files[0]);
+  };
+
+  return (
+    <div>
+      <label htmlFor={field.key} style={{ fontSize: "0.8rem", fontWeight: "bold", marginBottom: "4px", display: "block" }}>{field.label}</label>
+      <div
+        onDragOver={e => { e.preventDefault(); setDragging(true); }}
+        onDragLeave={() => setDragging(false)}
+        onDrop={handleDrop}
+        onClick={() => inputRef.current?.click()}
+        style={{
+          border: "2px dashed #888",
+          borderColor: dragging ? "var(--c-accent)" : "#888",
+          borderRadius: "4px",
+          padding: "12px",
+          textAlign: "center",
+          cursor: "pointer",
+          background: dragging ? "rgba(255, 215, 0, 0.15)" : "var(--c-grey-light)",
+          transition: "0.2s",
+        }}
+      >
+        {uploading ? (
+          <span>UPLOADING...</span>
+        ) : url ? (
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "10px" }}>
+            <img src={resolveImageUrl(url) as string} alt="preview" style={{ maxHeight: "60px", maxWidth: "60px", objectFit: "cover", border: "var(--border-thin)" }} />
+            <span style={{ fontSize: "0.8rem" }}>DROP OR CLICK TO REPLACE</span>
+          </div>
+        ) : (
+          <div>
+            <div style={{ fontSize: "1.4rem" }}>🖼️</div>
+            <div style={{ fontSize: "0.8rem" }}>DRAG &amp; DROP IMAGE</div>
+            <div style={{ fontSize: "0.7rem", opacity: 0.5 }}>or click to browse</div>
+          </div>
+        )}
+      </div>
+      <input ref={inputRef} type="file" accept="image/*" style={{ display: "none" }} onChange={e => { handleFile(e.target.files?.[0]); e.target.value = ""; }} />
+      <input type="text" value={url} onChange={e => onChange(e.target.value)} placeholder={field.placeholder || "Image URL"} style={{ ...inputStyle, marginTop: "6px" }} />
+      {error && <div style={{ color: "#ff4444", fontSize: "0.75rem", marginTop: "4px", fontWeight: "bold" }}>{error}</div>}
+    </div>
+  );
+}
+
+function FormField({ field, value, onChange, onUpload }: {
+  field: FieldDef;
+  value: unknown;
+  onChange: (val: unknown) => void;
+  onUpload?: (file: File) => Promise<{ url: string }>;
 }) {
   const id = `field-${field.key}`;
   const labelStyle: React.CSSProperties = { fontSize: "0.8rem", fontWeight: "bold", marginBottom: "4px", display: "block" };
 
+  if (field.type === "image" && onUpload) {
+    return <ImageUploadField field={field} value={value} onChange={onChange} onUpload={onUpload} />;
+  }
   if (field.type === "textarea") {
     return (
       <div>
@@ -255,7 +338,7 @@ function CrudPanel({ config, onStatus }: { config: CrudConfig; onStatus: (msg: s
       <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "10px", marginBottom: "20px", padding: "16px", border: "var(--border-thin)", background: "var(--c-grey-light)" }}>
         <h4 style={{ margin: 0 }}>{editingId ? "UPDATE" : "ADD NEW"}</h4>
         {config.fields.map(f => (
-          <FormField key={f.key} field={f} value={form[f.key]} onChange={val => setForm(p => ({ ...p, [f.key]: val }))} />
+          <FormField key={f.key} field={f} value={form[f.key]} onChange={val => setForm(p => ({ ...p, [f.key]: val }))} onUpload={config.uploadImage} />
         ))}
         <div style={{ display: "flex", gap: "10px" }}>
           <button type="submit" className="comic-btn" style={btnStyle}>{editingId ? "SAVE" : "CREATE"}</button>
@@ -508,6 +591,7 @@ const Admin: React.FC = () => {
         meta: `Tech: ${(item as Project).tech_stack.join(", ")}`,
       }),
       reorder: { onReorder: api.reorderProjects },
+      uploadImage: api.uploadImage,
     },
     blog: {
       fields: BLOG_FIELDS,
@@ -521,6 +605,7 @@ const Admin: React.FC = () => {
         secondary: (item as BlogPost).excerpt,
         meta: `Published: ${(item as BlogPost).published_at}`,
       }),
+      uploadImage: api.uploadImage,
     },
     skill: {
       fields: SKILL_FIELDS,

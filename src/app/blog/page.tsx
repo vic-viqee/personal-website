@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import SiteShell from "@/components/SiteShell";
 import { fetchBlogPosts } from "@/lib/api";
+import { resolveImageUrl } from "@/lib/image";
 import type { BlogPost } from "@/lib/api";
 
 export default function BlogListPage() {
@@ -34,9 +35,9 @@ export default function BlogListPage() {
           <div style={{ display: "grid", gap: "2rem" }}>
             {posts.map((post) => (
               <article key={post.id} className="comic-panel">
-                {post.image_url && (
+                {resolveImageUrl(post.image_url) && (
                   <img
-                    src={`/legacy-static/${post.image_url}`}
+                    src={resolveImageUrl(post.image_url) as string}
                     alt={post.title}
                     style={{ width: "100%", maxHeight: "200px", objectFit: "cover", borderRadius: "4px", marginBottom: "1rem" }}
                     onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}

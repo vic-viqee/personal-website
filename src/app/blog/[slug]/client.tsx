@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import SiteShell from "@/components/SiteShell";
 import { fetchBlogPostBySlug } from "@/lib/api";
+import { resolveImageUrl } from "@/lib/image";
 import type { BlogPost } from "@/lib/api";
 
 export default function BlogPostPage({ slug }: { slug: string }) {
@@ -37,9 +38,9 @@ export default function BlogPostPage({ slug }: { slug: string }) {
             &lt;- BACK TO INTEL
           </Link>
 
-          {post.image_url && (
+          {resolveImageUrl(post.image_url) && (
             <img
-              src={`/legacy-static/${post.image_url}`}
+              src={resolveImageUrl(post.image_url) as string}
               alt={post.title}
               style={{ width: "100%", maxHeight: "300px", objectFit: "cover", borderRadius: "4px", marginBottom: "1.5rem", marginTop: "1.5rem" }}
               onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}

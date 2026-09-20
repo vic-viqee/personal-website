@@ -21,6 +21,10 @@
     {
       "binding": "VINEXT_KV_CACHE",
       "id": "5093e255b312417ca38d3ba5d0bc0aaf"
+    },
+    {
+      "binding": "UPLOADS",
+      "id": "0fc43d7062e44141a27a41fdd4efa224"
     }
   ],
   "d1_databases": [

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import type { Project } from "@/lib/api";
+import { resolveImageUrl } from "@/lib/image";
 
 export default function ProjectCard({ project }: { project: Project }) {
   const [showBriefing, setShowBriefing] = useState(false);
@@ -27,10 +28,10 @@ export default function ProjectCard({ project }: { project: Project }) {
             <p style={{ fontSize: "0.8rem", color: "var(--c-accent)", fontWeight: "bold" }}>{project.category.toUpperCase()}</p>
           </div>
 
-          {project.image_url && (
+          {resolveImageUrl(project.image_url) && (
             <div style={{ border: "var(--border-thin)", marginBottom: "1rem", overflow: "hidden", background: "white" }}>
               <img
-                src={`/legacy-static/${project.image_url}`}
+                src={resolveImageUrl(project.image_url) as string}
                 alt={project.name}
                 style={{ width: "100%", height: "150px", objectFit: "contain" }}
               />

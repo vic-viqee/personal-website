@@ -103,6 +103,21 @@ function adminApi(secret: string) {
     reorderProjects: (orders: { id: number; sort_order: number }[]) =>
       request("/projects/reorder", { method: "POST", headers, body: JSON.stringify(orders) }),
 
+    uploadImage: async (file: File) => {
+      const form = new FormData();
+      form.append("file", file);
+      const response = await fetch(`${API_BASE_URL}/upload`, {
+        method: "POST",
+        headers: { "X-Admin-Secret": secret },
+        body: form,
+      });
+      if (!response.ok) {
+        const detail = (await response.json().catch(() => null)) as { detail?: string } | null;
+        throw Error((detail && detail.detail) || "Upload failed");
+      }
+      return response.json() as Promise<{ url: string }>;
+    },
+
     createSkill: (data: Partial<Skill>) =>
       request<Skill>("/skills", { method: "POST", headers, body: JSON.stringify(data) }),
     updateSkill: (id: number, data: Partial<Skill>) =>
