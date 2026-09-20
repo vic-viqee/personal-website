@@ -25,15 +25,6 @@ export default function ContactSection() {
 
       <div style={{ display: "flex", justifyContent: "center", gap: "15px", flexWrap: "wrap" }}>
         <a
-          href={settings.telegram_url || "https://t.me/vlm_hq_bot"}
-          target="_blank"
-          rel="noreferrer"
-          className="comic-btn"
-          style={{ fontSize: "0.8rem", background: "var(--c-accent)", color: "var(--c-black)" }}
-        >
-          TELEGRAM ASSISTANT
-        </a>
-        <a
           href={settings.github_url || "https://github.com/vic-viqee"}
           target="_blank"
           rel="noreferrer"
