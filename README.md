@@ -58,4 +58,4 @@ The old Vite/FastAPI site (previously `frontend/` + `backend/`) is being retired
 npm run deploy:vinext     # build + deploy to Cloudflare Workers
 ```
 
-Live: https://vic-portfolio.victorlewismurimi.workers.dev
+Live: https://victormurimi.dev (www redirects to apex)
