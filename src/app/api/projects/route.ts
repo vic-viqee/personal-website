@@ -17,6 +17,7 @@ const def: ResourceDef = {
     { name: "image_url", type: "string" },
     { name: "mission_briefing", type: "string" },
     { name: "sort_order", type: "number", default: 0 },
+    { name: "created_at", type: "string" },
   ],
   prepareCreate: (body) => ({
     ...body,

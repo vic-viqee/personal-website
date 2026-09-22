@@ -281,9 +281,9 @@ function CrudPanel({ config, onStatus }: { config: CrudConfig; onStatus: (msg: s
     e.preventDefault();
     const data = { ...form };
     if (editingId) {
-      try { await config.update(editingId, data); onStatus("UPDATED! ✨"); setEditingId(null); } catch { onStatus("FAILED! 🚩"); }
+      try { await config.update(editingId, data); onStatus("UPDATED! ✨"); setEditingId(null); } catch (err) { onStatus(`FAILED! ${err instanceof Error ? err.message : ""}`.trimEnd()); }
     } else {
-      try { await config.create(data); onStatus("CREATED! ✅"); } catch { onStatus("FAILED! 🚩"); }
+      try { await config.create(data); onStatus("CREATED! ✅"); } catch (err) { onStatus(`FAILED! ${err instanceof Error ? err.message : ""}`.trimEnd()); }
     }
     setForm({ ...config.defaultForm });
     load();
